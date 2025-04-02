@@ -38,7 +38,10 @@ export default function Glucose3D({ navigation, array = [] }) {
         {ultimosDias.map((dia, index) => (
           <TouchableOpacity
             key={index}
-            style={styles.button}
+            style={[
+              styles.button,
+              { backgroundColor: theme.card.btnSecundario },
+            ]}
             onPress={() => handleDayPress(dia)}
           >
             <Text style={{ color: "white" }}>{dia}</Text>
@@ -47,7 +50,7 @@ export default function Glucose3D({ navigation, array = [] }) {
       </View>
 
       <TouchableOpacity
-        style={[styles.btnVerM, { backgroundColor: theme.card.btnSecundario }]}
+        style={[styles.btnVerM, { backgroundColor: theme.card.btnPrimario }]}
         onPress={() =>
           navigation.navigate("DetailScreen", { glucoseData: array })
         }
