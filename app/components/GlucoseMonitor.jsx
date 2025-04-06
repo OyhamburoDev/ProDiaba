@@ -11,13 +11,18 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import { useTheme } from "../context/ThemeContext";
 
 export default function GlucoseMonitor({ array, setArray }) {
+  // Para estilos
   const { theme } = useTheme();
+
+  // Para los datos del glucometro
   const [glucosa, setGlucosa] = useState("");
   const [horario, setHorario] = useState("");
   const [comentario, setComentario] = useState("");
   const [error, setError] = useState("");
   const [showPicker, setShowPicker] = useState(false);
   const [selectedTime, setSelectedTime] = useState(new Date());
+
+  // Para la navegacion
   const navigation = useNavigation();
 
   const handleSubmit = () => {

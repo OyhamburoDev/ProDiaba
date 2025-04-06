@@ -2,11 +2,11 @@ import { StatusBar } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
-import HomeScreen from "./screens/HomeScreen";
-import DetailScreen from "./screens/DetailScreen";
-import GraphicsScreen from "./screens/GraphicsScreen";
-import { useTheme } from "./context/ThemeContext";
-import { darkTheme } from "./styles/styles";
+import HomeScreen from "./app/screens/HomeScreen";
+import DetailScreen from "./app/screens/DetailScreen";
+import GraphicsScreen from "./app/screens/GraphicsScreen";
+import { useTheme } from "./app/context/ThemeContext";
+import { darkTheme } from "./app/styles/styles";
 
 const Stack = createStackNavigator();
 
