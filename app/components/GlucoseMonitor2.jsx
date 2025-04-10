@@ -30,7 +30,9 @@ export default function GlucoseMonitor2({ array, setArray }) {
   return (
     <View style={[styles.container, { backgroundColor: theme.background }]}>
       <View style={styles.card}>
-        <Text style={styles.title}>Glucose Monitor</Text>
+        <Text style={styles.title}>Glucose</Text>
+        <Text style={styles.title}>Monitor</Text>
+
         <Image source={bloodDrop} style={styles.image} />
 
         <TextInput
@@ -44,7 +46,7 @@ export default function GlucoseMonitor2({ array, setArray }) {
         />
 
         <TextInput
-          value={String(newItem.comentario)}
+          value={newItem.comentario}
           onChangeText={(text) => setNewItem({ ...newItem, comentario: text })}
           placeholder="Comentario opcional"
           style={styles.input}
@@ -62,39 +64,35 @@ export default function GlucoseMonitor2({ array, setArray }) {
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
-    marginTop: 20,
+    flex: 1,
+    alignItems: "center",
+    paddingVertical: 30,
+    backgroundColor: "#FFF8DC", // color similar al diseño
   },
   card: {
-    backgroundColor: "#fff8dc",
-    borderRadius: 16,
-    padding: 20,
+    width: "90%",
     alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.1,
-    shadowRadius: 6,
-    elevation: 4,
   },
   title: {
-    fontSize: 28,
+    fontSize: 42,
     fontFamily: "balooExtra",
     color: "#3A2F18",
-    marginBottom: 10,
+    lineHeight: 52,
+    marginBottom: -10,
   },
   image: {
     width: 120,
     height: 120,
-    marginVertical: 10,
+    marginVertical: 20,
+    resizeMode: "contain",
   },
   input: {
     width: "100%",
-    borderWidth: 1,
+    borderWidth: 2,
     borderColor: "#e0c989",
-    borderRadius: 10,
+    borderRadius: 12,
     padding: 12,
     marginBottom: 10,
     backgroundColor: "#fffef8",
@@ -106,12 +104,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#fdd066",
     padding: 12,
-    borderRadius: 10,
+    borderRadius: 12,
     marginBottom: 15,
+    width: "100%",
+    justifyContent: "center",
   },
   cameraIcon: {
-    width: 24,
-    height: 24,
+    width: 20,
+    height: 20,
     marginRight: 10,
   },
   cameraText: {
@@ -122,14 +122,14 @@ const styles = StyleSheet.create({
   saveButton: {
     backgroundColor: "#F87171",
     padding: 12,
-    borderRadius: 10,
+    borderRadius: 12,
     width: "100%",
     alignItems: "center",
   },
   saveText: {
-    color: "white",
+    color: "#fff",
     fontSize: 16,
-    fontWeight: "bold",
     fontFamily: "baloo",
+    fontWeight: "bold",
   },
 });

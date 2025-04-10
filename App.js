@@ -19,6 +19,7 @@ export default function App() {
   const [fontsLoaded] = useFonts({
     baloo: require("./assets/fonts/Baloo2-Bold.ttf"),
     balooExtra: require("./assets/fonts/Baloo2-ExtraBold.ttf"),
+    balooSemi: require("./assets/fonts/Baloo2-SemiBold.ttf"),
   });
 
   useEffect(() => {
@@ -49,15 +50,11 @@ export default function App() {
             headerTitleAlign: "left",
             headerStyle: {
               backgroundColor: theme.header.background,
-              borderBottomWidth: 1,
-              borderBottomColor: theme.header.borderBottomColor,
-              ...(theme === darkTheme && {
-                shadowColor: theme.header.shadow, // Sombra en iOS
-                shadowOffset: { width: 0, height: 3 },
-                shadowOpacity: 0.3,
-                shadowRadius: 4,
-                elevation: 6, // Sombra en Android
-              }),
+              shadowColor: "transparent", // iOS
+              shadowOffset: { width: 0, height: 0 }, // iOS
+              shadowOpacity: 0, // iOS
+              shadowRadius: 0, // iOS
+              elevation: 0, // Android
             },
             headerTintColor: theme.header.text,
           }}
@@ -69,12 +66,17 @@ export default function App() {
             name="HomeScreen"
             options={{
               title: "ProDiaba",
+              headerTitleStyle: {
+                fontSize: 25,
+                fontFamily: "balooSemi",
+                color: theme.header.text,
+              },
               headerRight: () => (
                 <TouchableOpacity
                   onPress={toggleTheme}
                   style={{ marginRight: 20 }}
                 >
-                  <Text style={{ fontSize: 18 }}>
+                  <Text style={{ fontSize: 20 }}>
                     {theme === darkTheme ? "☀️" : "🌙"}
                   </Text>
                 </TouchableOpacity>

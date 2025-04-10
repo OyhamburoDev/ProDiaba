@@ -4,7 +4,7 @@ export const lightTheme = {
   buttonBg: "#f0f0f0",
   header: {
     // 🔹 Agregamos esta sección
-    background: "white",
+    background: "#FFF8DC",
     text: "#000000",
     borderBottomColor: "#dcdcdc", // Línea sutil para separar el header
     shadow: "rgba(0, 0, 0, 0.1)", // Sombra más suave en light mode
@@ -26,14 +26,12 @@ export const lightTheme = {
 };
 
 export const darkTheme = {
-  background: "#121212", // Fondo principal oscuro
-  text: "#ffffff",
+  background: "#1C1E26", // Fondo principal oscuro
+  text: "#FDF2E9",
   buttonBg: "#333333",
   header: {
-    background: "#1C1C1E", // 🔹 Un poco más claro que el fondo para destacar
-    text: "#E0E0E0",
-    borderBottomColor: "#333333", // Línea sutil de separación
-    shadow: "rgba(0, 0, 0, 0.5)", // Sombra tenue
+    background: "#1C1E26", // 🔹 Un poco más claro que el fondo para destacar
+    text: "#FDF2E9",
   },
   card: {
     background: "#1E1E1E",
