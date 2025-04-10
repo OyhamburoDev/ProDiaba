@@ -11,6 +11,8 @@ import WelcomeScreen from "./app/screens/WelcomeScreen";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { useCallback, useEffect } from "react";
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 const Stack = createStackNavigator();
 
@@ -69,7 +71,7 @@ export default function App() {
               headerTitleStyle: {
                 fontSize: 25,
                 fontFamily: "balooSemi",
-                color: theme.header.text,
+                color: theme.text,
               },
               headerRight: () => (
                 <TouchableOpacity
@@ -77,7 +79,15 @@ export default function App() {
                   style={{ marginRight: 20 }}
                 >
                   <Text style={{ fontSize: 20 }}>
-                    {theme === darkTheme ? "☀️" : "🌙"}
+                    {theme === darkTheme ? (
+                      <MaterialIcons
+                        name="sunny"
+                        size={23}
+                        color={theme.text}
+                      />
+                    ) : (
+                      <Ionicons name="moon" size={23} color={theme.text} />
+                    )}
                   </Text>
                 </TouchableOpacity>
               ),

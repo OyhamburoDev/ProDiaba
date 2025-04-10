@@ -1,4 +1,3 @@
-// Nuevo diseño visual inspirado en tus pantallas con gotita
 import {
   StyleSheet,
   Text,
@@ -11,8 +10,9 @@ import { useState } from "react";
 import { useTheme } from "../context/ThemeContext";
 import { addDoc, collection } from "firebase/firestore";
 import { database } from "../config/fb";
-import cameraIcon from "../../assets/icon-camera.png"; // Icono ficticio, asegurate de tenerlo
-import bloodDrop from "../../assets/drop-monitor.png"; // Usar el mismo estilo visual
+import AntDesign from "@expo/vector-icons/AntDesign";
+
+import bloodDrop from "../../assets/drop-monitor.png";
 
 export default function GlucoseMonitor2({ array, setArray }) {
   const { theme } = useTheme();
@@ -27,11 +27,13 @@ export default function GlucoseMonitor2({ array, setArray }) {
     setNewItem({ valorGlucemico: "", createAt: new Date(), comentario: "" });
   };
 
+  const isDark = theme.background === "#1C1E26";
+
   return (
     <View style={[styles.container, { backgroundColor: theme.background }]}>
       <View style={styles.card}>
-        <Text style={styles.title}>Glucose</Text>
-        <Text style={styles.title}>Monitor</Text>
+        <Text style={[styles.title, { color: theme.text }]}>Glucose</Text>
+        <Text style={[styles.title, { color: theme.text }]}>Monitor</Text>
 
         <Image source={bloodDrop} style={styles.image} />
 
@@ -41,7 +43,15 @@ export default function GlucoseMonitor2({ array, setArray }) {
             setNewItem({ ...newItem, valorGlucemico: Number(number) })
           }
           placeholder="Nivel de glucosa (mg/dL)"
-          style={styles.input}
+          placeholderTextColor={isDark ? "#aaa" : "#666"}
+          style={[
+            styles.input,
+            {
+              backgroundColor: isDark ? "#2C2F36" : "#fffef8",
+              color: theme.text,
+              borderColor: isDark ? "#444" : "#e0c989",
+            },
+          ]}
           keyboardType="numeric"
         />
 
@@ -49,27 +59,55 @@ export default function GlucoseMonitor2({ array, setArray }) {
           value={newItem.comentario}
           onChangeText={(text) => setNewItem({ ...newItem, comentario: text })}
           placeholder="Comentario opcional"
-          style={styles.input}
+          placeholderTextColor={isDark ? "#aaa" : "#666"}
+          style={[
+            styles.input,
+            {
+              backgroundColor: isDark ? "#2C2F36" : "#fffef8",
+              color: theme.text,
+              borderColor: isDark ? "#444" : "#e0c989",
+            },
+          ]}
         />
 
-        <TouchableOpacity style={styles.cameraButton}>
-          <Image source={cameraIcon} style={styles.cameraIcon} />
-          <Text style={styles.cameraText}>Usar cámara</Text>
+        <TouchableOpacity
+          style={[
+            styles.cameraButton,
+            {
+              backgroundColor: isDark ? "#3A3D46" : "#fdd066",
+            },
+          ]}
+        >
+          <AntDesign name="camera" size={24} color={theme.text} />
+          <Text
+            style={[
+              styles.cameraText,
+              { color: isDark ? theme.text : "#3A2F18" },
+            ]}
+          >
+            Usar cámara
+          </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.saveButton} onPress={onSend}>
+        <TouchableOpacity
+          style={[
+            styles.saveButton,
+            { backgroundColor: isDark ? "#F87171" : "#F87171" },
+          ]}
+          onPress={onSend}
+        >
           <Text style={styles.saveText}>Guardar</Text>
         </TouchableOpacity>
       </View>
     </View>
   );
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
     paddingVertical: 30,
-    backgroundColor: "#FFF8DC", // color similar al diseño
   },
   card: {
     width: "90%",
@@ -78,36 +116,33 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 42,
     fontFamily: "balooExtra",
-    color: "#3A2F18",
     lineHeight: 52,
     marginBottom: -10,
   },
   image: {
-    width: 120,
-    height: 120,
+    width: 155,
+    height: 130,
     marginVertical: 20,
-    resizeMode: "contain",
+    resizeMode: "cover",
   },
   input: {
     width: "100%",
     borderWidth: 2,
-    borderColor: "#e0c989",
     borderRadius: 12,
     padding: 12,
     marginBottom: 10,
-    backgroundColor: "#fffef8",
     fontSize: 16,
     fontFamily: "baloo",
   },
   cameraButton: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#fdd066",
     padding: 12,
     borderRadius: 12,
     marginBottom: 15,
     width: "100%",
     justifyContent: "center",
+    gap: 6,
   },
   cameraIcon: {
     width: 20,
@@ -117,10 +152,8 @@ const styles = StyleSheet.create({
   cameraText: {
     fontFamily: "baloo",
     fontSize: 16,
-    color: "#3A2F18",
   },
   saveButton: {
-    backgroundColor: "#F87171",
     padding: 12,
     borderRadius: 12,
     width: "100%",

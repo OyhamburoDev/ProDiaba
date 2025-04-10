@@ -1,6 +1,6 @@
 export const lightTheme = {
   background: "#FFF8DC",
-  text: "#000000",
+  text: "#5B3E0B",
   buttonBg: "#f0f0f0",
   header: {
     // 🔹 Agregamos esta sección
