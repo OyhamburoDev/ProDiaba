@@ -9,7 +9,10 @@ export default function SugarGraph({ array }) {
 
   // Preprocesamos los datos de glucosa
   const glucoseData = array.length
-    ? array.map((entry) => parseInt(entry.glucosa))
+    ? array.map((entry) => {
+        const valor = parseInt(entry.glucosa);
+        return isNaN(valor) ? 0 : valor;
+      })
     : [0];
   const horarios = array.length
     ? array.map((entry) => entry.horario)

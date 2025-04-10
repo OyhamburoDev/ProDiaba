@@ -7,11 +7,34 @@ import DetailScreen from "./app/screens/DetailScreen";
 import GraphicsScreen from "./app/screens/GraphicsScreen";
 import { useTheme } from "./app/context/ThemeContext";
 import { darkTheme } from "./app/styles/styles";
+import WelcomeScreen from "./app/screens/WelcomeScreen";
+import { useFonts } from "expo-font";
+import * as SplashScreen from "expo-splash-screen";
+import { useCallback, useEffect } from "react";
 
 const Stack = createStackNavigator();
 
 export default function App() {
   const { toggleTheme, theme } = useTheme();
+  const [fontsLoaded] = useFonts({
+    baloo: require("./assets/fonts/Baloo2-Bold.ttf"),
+    balooExtra: require("./assets/fonts/Baloo2-ExtraBold.ttf"),
+  });
+
+  useEffect(() => {
+    async function prepare() {
+      await SplashScreen.preventAutoHideAsync();
+    }
+    prepare();
+  }, []);
+
+  const onLayout = useCallback(async () => {
+    if (fontsLoaded) {
+      await SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded]);
+
+  if (!fontsLoaded) return null;
 
   return (
     <>
@@ -21,7 +44,7 @@ export default function App() {
       />
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="HomeScreen"
+          initialRouteName="Welcome"
           screenOptions={{
             headerTitleAlign: "left",
             headerStyle: {
@@ -39,6 +62,9 @@ export default function App() {
             headerTintColor: theme.header.text,
           }}
         >
+          <Stack.Screen name="Welcome" options={{ headerShown: false }}>
+            {(props) => <WelcomeScreen {...props} onLayout={onLayout} />}
+          </Stack.Screen>
           <Stack.Screen
             name="HomeScreen"
             options={{

@@ -1,5 +1,5 @@
 export const lightTheme = {
-  background: "white",
+  background: "#FFF8DC",
   text: "#000000",
   buttonBg: "#f0f0f0",
   header: {

@@ -29,7 +29,6 @@ export default function HomeScreen({ navigation }) {
 
   return (
     <ScrollView style={{ backgroundColor: theme.background }}>
-      <GlucoseMonitor setArray={setArray} array={array} />
       <GlucoseMonitor2 setArray={setArray} array={array} />
       <Glucose3D array={array} navigation={navigation} />
       <SugarGraph array={array} />
