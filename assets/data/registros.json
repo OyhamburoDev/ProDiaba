@@ -1,0 +1,138 @@
+[
+  {
+    "fecha": "2025-04-18",
+    "controles": [
+      { "hora": "08:00", "glucemia": 110, "comentario": "Antes del desayuno" },
+      {
+        "hora": "12:30",
+        "glucemia": 140,
+        "comentario": "Después del almuerzo"
+      },
+      { "hora": "16:00", "glucemia": 150, "comentario": "Estaba estresado" },
+      { "hora": "20:00", "glucemia": 120, "comentario": "Cena ligera" },
+      { "hora": "23:30", "glucemia": 105, "comentario": "Antes de dormir" }
+    ]
+  },
+  {
+    "fecha": "2025-04-17",
+    "controles": [
+      {
+        "hora": "07:45",
+        "glucemia": 100,
+        "comentario": "Me desperté con buen ánimo"
+      },
+      { "hora": "13:00", "glucemia": 160, "comentario": "Comí afuera" },
+      { "hora": "15:30", "glucemia": 170, "comentario": "Merendé algo dulce" },
+      { "hora": "19:45", "glucemia": 130, "comentario": "Cena habitual" },
+      { "hora": "22:15", "glucemia": 115, "comentario": "Relajado en casa" }
+    ]
+  },
+  {
+    "fecha": "2025-04-16",
+    "controles": [
+      {
+        "hora": "08:15",
+        "glucemia": 90,
+        "comentario": "Desayuno bajo en carbohidratos"
+      },
+      {
+        "hora": "12:00",
+        "glucemia": 135,
+        "comentario": "Después del almuerzo"
+      },
+      { "hora": "17:00", "glucemia": 145, "comentario": "Después de caminar" },
+      { "hora": "21:00", "glucemia": 125, "comentario": "Cena con ensalada" },
+      { "hora": "23:45", "glucemia": 110, "comentario": "Noche tranquila" }
+    ]
+  },
+  {
+    "fecha": "2025-04-15",
+    "controles": [
+      { "hora": "07:30", "glucemia": 105, "comentario": "Control matutino" },
+      { "hora": "11:45", "glucemia": 155, "comentario": "Comí con ansiedad" },
+      {
+        "hora": "16:30",
+        "glucemia": 165,
+        "comentario": "Estrés por el trabajo"
+      },
+      { "hora": "20:30", "glucemia": 130, "comentario": "Cena equilibrada" },
+      { "hora": "00:00", "glucemia": 115, "comentario": "Me acosté tarde" }
+    ]
+  },
+  {
+    "fecha": "2025-04-14",
+    "controles": [
+      { "hora": "08:00", "glucemia": 115, "comentario": "Desayuno sin azúcar" },
+      { "hora": "13:00", "glucemia": 145, "comentario": "Almuerzo normal" },
+      { "hora": "17:00", "glucemia": 160, "comentario": "Merienda con frutas" },
+      { "hora": "21:00", "glucemia": 125, "comentario": "Cena tranquila" },
+      { "hora": "23:00", "glucemia": 110, "comentario": "Relajación nocturna" }
+    ]
+  },
+  {
+    "fecha": "2025-04-13",
+    "controles": [
+      { "hora": "07:50", "glucemia": 95, "comentario": "Día de descanso" },
+      { "hora": "12:15", "glucemia": 130, "comentario": "Almuerzo familiar" },
+      {
+        "hora": "16:30",
+        "glucemia": 140,
+        "comentario": "Algo de actividad física"
+      },
+      { "hora": "20:15", "glucemia": 125, "comentario": "Cena en casa" },
+      {
+        "hora": "22:45",
+        "glucemia": 105,
+        "comentario": "Me fui a dormir temprano"
+      }
+    ]
+  },
+  {
+    "fecha": "2025-04-12",
+    "controles": [
+      { "hora": "08:30", "glucemia": 90, "comentario": "Me levanté tarde" },
+      { "hora": "13:30", "glucemia": 150, "comentario": "Almuerzo pesado" },
+      { "hora": "17:00", "glucemia": 160, "comentario": "Snack dulce" },
+      { "hora": "21:30", "glucemia": 135, "comentario": "Cena liviana" },
+      { "hora": "00:30", "glucemia": 120, "comentario": "Me dormí tarde" }
+    ]
+  },
+  {
+    "fecha": "2025-04-11",
+    "controles": [
+      { "hora": "08:10", "glucemia": 100, "comentario": "Inicio del día" },
+      { "hora": "12:50", "glucemia": 140, "comentario": "Almuerzo normal" },
+      { "hora": "16:40", "glucemia": 150, "comentario": "Día tranquilo" },
+      { "hora": "20:20", "glucemia": 130, "comentario": "Cena habitual" },
+      { "hora": "23:10", "glucemia": 115, "comentario": "Antes de dormir" }
+    ]
+  },
+  {
+    "fecha": "2025-04-10",
+    "controles": [
+      { "hora": "07:40", "glucemia": 105, "comentario": "Control de rutina" },
+      {
+        "hora": "12:00",
+        "glucemia": 145,
+        "comentario": "Almuerzo con compañeros"
+      },
+      { "hora": "17:15", "glucemia": 155, "comentario": "Caminata previa" },
+      { "hora": "21:00", "glucemia": 130, "comentario": "Cena" },
+      {
+        "hora": "23:30",
+        "glucemia": 120,
+        "comentario": "Control final del día"
+      }
+    ]
+  },
+  {
+    "fecha": "2025-04-09",
+    "controles": [
+      { "hora": "08:20", "glucemia": 95, "comentario": "Me sentía bien" },
+      { "hora": "12:30", "glucemia": 135, "comentario": "Buen almuerzo" },
+      { "hora": "17:00", "glucemia": 145, "comentario": "Sin actividad" },
+      { "hora": "20:40", "glucemia": 125, "comentario": "Cena sin pan" },
+      { "hora": "23:20", "glucemia": 110, "comentario": "Noche tranquila" }
+    ]
+  }
+]

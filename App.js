@@ -13,6 +13,8 @@ import * as SplashScreen from "expo-splash-screen";
 import { useCallback, useEffect } from "react";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import TabsNavigator from "./app/navigation/TabsNavigator";
+import ItemScreen from "./app/screens/ItemScreen";
 
 const Stack = createStackNavigator();
 
@@ -65,38 +67,15 @@ export default function App() {
             {(props) => <WelcomeScreen {...props} onLayout={onLayout} />}
           </Stack.Screen>
           <Stack.Screen
-            name="HomeScreen"
-            options={{
-              title: "ProDiaba",
-              headerTitleStyle: {
-                fontSize: 25,
-                fontFamily: "balooSemi",
-                color: theme.text,
-              },
-              headerRight: () => (
-                <TouchableOpacity
-                  onPress={toggleTheme}
-                  style={{ marginRight: 20 }}
-                >
-                  <Text style={{ fontSize: 20 }}>
-                    {theme === darkTheme ? (
-                      <MaterialIcons
-                        name="sunny"
-                        size={23}
-                        color={theme.text}
-                      />
-                    ) : (
-                      <Ionicons name="moon" size={23} color={theme.text} />
-                    )}
-                  </Text>
-                </TouchableOpacity>
-              ),
-            }}
-          >
-            {(props) => <HomeScreen {...props} />}
-          </Stack.Screen>
-          <Stack.Screen name="DetailScreen" component={DetailScreen} />
-          <Stack.Screen name="GraphicsScreen" component={GraphicsScreen} />
+            name="Main"
+            component={TabsNavigator}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="ItemScreen"
+            component={ItemScreen}
+            options={{ headerShown: false }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </>

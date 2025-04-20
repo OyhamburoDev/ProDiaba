@@ -5,7 +5,7 @@ export const lightTheme = {
   header: {
     // 🔹 Agregamos esta sección
     background: "#FFF8DC",
-    text: "#000000",
+    text: "#5B3E0B",
     borderBottomColor: "#dcdcdc", // Línea sutil para separar el header
     shadow: "rgba(0, 0, 0, 0.1)", // Sombra más suave en light mode
   },

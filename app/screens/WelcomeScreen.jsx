@@ -22,7 +22,7 @@ export default function WelcomeScreen({ navigation, onLayout }) {
 
     // Timer para ir al Home
     const timer = setTimeout(() => {
-      navigation.replace("HomeScreen");
+      navigation.replace("Main");
     }, 2000);
 
     return () => clearTimeout(timer);
