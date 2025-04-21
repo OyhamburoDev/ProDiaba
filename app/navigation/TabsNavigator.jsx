@@ -1,8 +1,11 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { TouchableOpacity, Text, Image } from "react-native";
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-import Ionicons from "@expo/vector-icons/Ionicons";
+import { TouchableOpacity } from "react-native";
+import {
+  Ionicons,
+  MaterialCommunityIcons,
+  MaterialIcons,
+} from "@expo/vector-icons";
 import { useTheme } from "../context/ThemeContext";
 import HomeScreen from "../screens/HomeScreen";
 import DetailScreen from "../screens/DetailScreen";
@@ -18,25 +21,41 @@ export default function TabsNavigator() {
     <Tab.Navigator
       screenOptions={({ route }) => ({
         headerStyle: {
-          backgroundColor: theme.header.background,
-          elevation: 0, // 🔸 Android
-          shadowColor: "transparent", // 🔸 iOS
-          borderBottomWidth: 0, // 🔸 iOS también
+          backgroundColor: "#C1C8E4",
+          elevation: 0,
+          shadowColor: "transparent",
+          borderBottomWidth: 0,
         },
         headerTitleStyle: {
           fontSize: 25,
           fontFamily: "balooSemi",
           color: theme.header.text,
         },
+        tabBarItemStyle: {
+          paddingVertical: 8,
+        },
         headerTintColor: theme.header.text,
         headerTitleAlign: "left",
 
         tabBarStyle: {
-          backgroundColor: theme.header.background,
-          borderTopColor: "transparent",
+          backgroundColor: "rgba(255, 255, 255, 0.75)",
+
+          position: "absolute",
+          height: 70,
+          marginHorizontal: 20,
+          marginBottom: 15,
+          borderRadius: 20,
+          shadowColor: "rgba(255, 255, 255, 0.75)",
+          shadowOpacity: 0.05,
+          shadowRadius: 10,
+          elevation: 10,
         },
-        tabBarActiveTintColor: theme.header.text,
+        tabBarActiveTintColor: "black",
         tabBarInactiveTintColor: "gray",
+        tabBarLabelStyle: {
+          fontSize: 12,
+          fontFamily: "balooSemi",
+        },
 
         headerRight: () =>
           route.name === "Inicio" && (
@@ -60,16 +79,8 @@ export default function TabsNavigator() {
         options={{
           title: "ProDiaba",
           tabBarLabel: "Inicio",
-          tabBarIcon: ({ focused, size }) => (
-            <Image
-              source={require("../../assets/inicio-tab.png")}
-              style={{
-                width: 50,
-                height: 50,
-                opacity: focused ? 1 : 0.5,
-              }}
-              resizeMode="contain"
-            />
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="home-outline" size={size} color={color} />
           ),
         }}
       />
@@ -79,15 +90,11 @@ export default function TabsNavigator() {
         options={{
           title: "Últimos 10 días",
           tabBarLabel: "Registros",
-          tabBarIcon: ({ focused, size }) => (
-            <Image
-              source={require("../../assets/registros-tab.png")}
-              style={{
-                width: 50,
-                height: 50,
-                opacity: focused ? 1 : 0.5,
-              }}
-              resizeMode="contain"
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons
+              name="clipboard-text-outline"
+              size={size}
+              color={color}
             />
           ),
         }}
@@ -98,16 +105,8 @@ export default function TabsNavigator() {
         options={{
           title: "ProDiaba",
           tabBarLabel: "Gráficos",
-          tabBarIcon: ({ focused, size }) => (
-            <Image
-              source={require("../../assets/graficos-tab.png")}
-              style={{
-                width: 50,
-                height: 50,
-                opacity: focused ? 1 : 0.5,
-              }}
-              resizeMode="contain"
-            />
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="bar-chart-outline" size={size} color={color} />
           ),
         }}
       />

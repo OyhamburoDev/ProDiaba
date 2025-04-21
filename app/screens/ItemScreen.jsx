@@ -1,30 +1,34 @@
 import { Text, View, FlatList, StyleSheet } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
 
 export default function ItemScreen({ route }) {
   const { controles, fecha } = route.params;
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Registros del {fecha}</Text>
-      <FlatList
-        data={controles}
-        keyExtractor={(item, index) => index.toString()}
-        renderItem={({ item }) => (
-          <View style={styles.card}>
-            <Text style={styles.hora}>{item.hora}</Text>
-            <Text style={styles.glucemia}>Glucemia: {item.glucemia} mg/dL</Text>
-            <Text style={styles.comentario}>{item.comentario}</Text>
-          </View>
-        )}
-      />
-    </View>
+    <LinearGradient colors={["#C1C8E4", "#F7D9E3"]} style={{ flex: 1 }}>
+      <View style={styles.container}>
+        <Text style={styles.title}>Registros del {fecha}</Text>
+        <FlatList
+          data={controles}
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={({ item }) => (
+            <View style={styles.card}>
+              <Text style={styles.hora}>{item.hora}</Text>
+              <Text style={styles.glucemia}>
+                Glucemia: {item.glucemia} mg/dL
+              </Text>
+              <Text style={styles.comentario}>{item.comentario}</Text>
+            </View>
+          )}
+        />
+      </View>
+    </LinearGradient>
   );
 }
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
-    backgroundColor: "#FFF2E5",
   },
   title: {
     fontSize: 22,

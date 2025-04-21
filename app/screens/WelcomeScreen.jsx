@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import glucometerDrop from "../../assets/drop-welcome.png";
 import { useEffect, useRef } from "react";
+import { LinearGradient } from "expo-linear-gradient";
 
 export default function WelcomeScreen({ navigation, onLayout }) {
   const fadeAnim = useRef(new Animated.Value(0)).current;
@@ -29,13 +30,15 @@ export default function WelcomeScreen({ navigation, onLayout }) {
   }, []);
 
   return (
-    <View style={styles.container} onLayout={onLayout}>
-      <Animated.View style={{ ...styles.innerContainer, opacity: fadeAnim }}>
-        <Text style={styles.title}>¡Bienvenidos!</Text>
-        <Image source={glucometerDrop} style={styles.image} />
-        <Text style={styles.subtitle}>Comencemos a rastrear tu glucosa</Text>
-      </Animated.View>
-    </View>
+    <LinearGradient colors={["#C1C8E4", "#F7D9E3"]} style={{ flex: 1 }}>
+      <View style={styles.container} onLayout={onLayout}>
+        <Animated.View style={{ ...styles.innerContainer, opacity: fadeAnim }}>
+          <Text style={styles.title}>¡Bienvenidos!</Text>
+          <Image source={glucometerDrop} style={styles.image} />
+          <Text style={styles.subtitle}>Comencemos a rastrear tu glucosa</Text>
+        </Animated.View>
+      </View>
+    </LinearGradient>
   );
 }
 
@@ -44,7 +47,7 @@ const { width } = Dimensions.get("window");
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#FFF8DC",
+
     justifyContent: "center",
     alignItems: "center",
   },

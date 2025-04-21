@@ -12,7 +12,7 @@ export default function CardCategory({ title, navigation, tabTitle }) {
         <MaterialIcons
           name={iconName}
           size={28}
-          color="#8E5E2A"
+          color="black"
           style={styles.icon}
         />
         <Text style={styles.text}>{title}</Text>
@@ -23,29 +23,26 @@ export default function CardCategory({ title, navigation, tabTitle }) {
 
 const styles = StyleSheet.create({
   cardCnt: {
-    backgroundColor: "white",
-    height: 80,
-    width: 150,
-    borderRadius: 20,
+    backgroundColor: "rgba(255, 255, 255, 0.75)",
+    borderRadius: 28,
     justifyContent: "center",
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 2,
-    elevation: 2,
+    shadowColor: "rgba(255, 255, 255, 0.75)",
+
+    elevation: 8,
+    padding: 25,
+    paddingLeft: 20,
+    paddingRight: 20,
   },
   pressable: {
-    flexDirection: "row", // 💡 clave para poner el ícono y texto en fila
+    flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    gap: 8, // si no te toma esto, usá marginRight en el icono
-  },
-  icon: {
-    marginRight: 6,
+    gap: 3,
   },
   text: {
     fontSize: 18,
-    color: "#5B3E0B",
-    fontWeight: "500",
+    color: "black",
+    fontWeight: "600",
+    fontFamily: "balooSemi",
   },
 });

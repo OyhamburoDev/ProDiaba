@@ -9,9 +9,9 @@ export default {
     userInterfaceStyle: "light",
     newArchEnabled: true,
     splash: {
-      image: "./assets/sinFondo.png",
+      image: "./assets/pablo.png",
       resizeMode: "contain",
-      backgroundColor: "#FFF8DC",
+      backgroundColor: "#C1C8E4",
     },
     plugins: ["expo-font"],
     ios: {

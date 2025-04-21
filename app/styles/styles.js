@@ -1,13 +1,13 @@
 export const lightTheme = {
   background: "#FFF8DC",
-  text: "#5B3E0B",
+  text: "black",
   buttonBg: "#f0f0f0",
   header: {
     // 🔹 Agregamos esta sección
-    background: "#FFF8DC",
-    text: "#5B3E0B",
-    borderBottomColor: "#dcdcdc", // Línea sutil para separar el header
-    shadow: "rgba(0, 0, 0, 0.1)", // Sombra más suave en light mode
+    background: "transparent",
+    text: "black",
+    borderBottomColor: "transparent", // Línea sutil para separar el header
+    shadow: "rgba(0, 0, 0, 0.05)",
   },
   card: {
     background: "white",

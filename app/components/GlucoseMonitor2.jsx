@@ -10,8 +10,6 @@ import { useState } from "react";
 import { useTheme } from "../context/ThemeContext";
 import { addDoc, collection } from "firebase/firestore";
 import { database } from "../config/fb";
-import AntDesign from "@expo/vector-icons/AntDesign";
-
 import bloodDrop from "../../assets/drop-monitor.png";
 
 export default function GlucoseMonitor2({ array, setArray }) {
@@ -30,74 +28,56 @@ export default function GlucoseMonitor2({ array, setArray }) {
   const isDark = theme.background === "#1C1E26";
 
   return (
-    <View style={[styles.container, { backgroundColor: theme.background }]}>
-      <View style={styles.card}>
-        <Text style={[styles.title, { color: theme.text }]}>Glucose</Text>
-        <Text style={[styles.title, { color: theme.text }]}>Monitor</Text>
-
-        <Image source={bloodDrop} style={styles.image} />
-
-        <TextInput
-          value={String(newItem.valorGlucemico)}
-          onChangeText={(number) =>
-            setNewItem({ ...newItem, valorGlucemico: Number(number) })
-          }
-          placeholder="Nivel de glucosa (mg/dL)"
-          placeholderTextColor={isDark ? "#aaa" : "#666"}
-          style={[
-            styles.input,
-            {
-              backgroundColor: isDark ? "#2C2F36" : "#fffef8",
-              color: theme.text,
-              borderColor: isDark ? "#444" : "#e0c989",
-            },
-          ]}
-          keyboardType="numeric"
-        />
-
-        <TextInput
-          value={newItem.comentario}
-          onChangeText={(text) => setNewItem({ ...newItem, comentario: text })}
-          placeholder="Comentario opcional"
-          placeholderTextColor={isDark ? "#aaa" : "#666"}
-          style={[
-            styles.input,
-            {
-              backgroundColor: isDark ? "#2C2F36" : "#fffef8",
-              color: theme.text,
-              borderColor: isDark ? "#444" : "#e0c989",
-            },
-          ]}
-        />
-
-        <TouchableOpacity
-          style={[
-            styles.cameraButton,
-            {
-              backgroundColor: isDark ? "#3A3D46" : "#fdd066",
-            },
-          ]}
-        >
-          <AntDesign name="camera" size={24} color={theme.text} />
-          <Text
+    <View style={styles.container}>
+      <Text style={[styles.title, { color: theme.text }]}>Glucose Monitor</Text>
+      <View
+        style={[
+          styles.cardContainer,
+          {
+            backgroundColor: isDark ? "#1E1E1E" : "rgba(255, 255, 255, 0.9)",
+          },
+        ]}
+      >
+        <View style={styles.cardLeft}>
+          <TextInput
+            value={String(newItem.valorGlucemico)}
+            onChangeText={(number) =>
+              setNewItem({ ...newItem, valorGlucemico: Number(number) })
+            }
+            placeholder="Nivel de glucosa (mg/dL)"
+            placeholderTextColor={isDark ? "#aaa" : "#666"}
             style={[
-              styles.cameraText,
-              { color: isDark ? theme.text : "#3A2F18" },
+              styles.input1,
+              {
+                backgroundColor: isDark ? "#2C2F36" : "#fffef8",
+                color: theme.text,
+                borderColor: isDark ? "#444" : "#e0c989",
+              },
             ]}
-          >
-            Usar cámara
-          </Text>
-        </TouchableOpacity>
+            keyboardType="numeric"
+          />
 
-        <TouchableOpacity
-          style={[
-            styles.saveButton,
-            { backgroundColor: isDark ? "#F87171" : "#F87171" },
-          ]}
-          onPress={onSend}
-        >
-          <Text style={styles.saveText}>Guardar</Text>
-        </TouchableOpacity>
+          <TextInput
+            value={newItem.comentario}
+            onChangeText={(text) =>
+              setNewItem({ ...newItem, comentario: text })
+            }
+            placeholder="Comentario opcional"
+            placeholderTextColor={isDark ? "#aaa" : "#666"}
+            style={[
+              styles.input2,
+              {
+                backgroundColor: isDark ? "#2C2F36" : "#fffef8",
+                color: theme.text,
+                borderColor: isDark ? "#444" : "#e0c989",
+              },
+            ]}
+          />
+
+          <TouchableOpacity style={styles.saveButton} onPress={onSend}>
+            <Text style={styles.saveText}>Guardar</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
@@ -105,64 +85,73 @@ export default function GlucoseMonitor2({ array, setArray }) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     alignItems: "center",
     paddingVertical: 30,
   },
-  card: {
-    width: "90%",
+  cardContainer: {
+    width: "95%",
+    flexDirection: "row",
+    justifyContent: "space-between",
     alignItems: "center",
+    padding: 20,
+    borderRadius: 28,
+    backgroundColor: "rgba(255, 255, 255, 0.15)", // translúcido
+    borderColor: "rgba(255, 255, 255, 0.3)",
+    borderWidth: 1,
+
+    shadowColor: "rgba(255, 255, 255, 0.75)",
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.1,
+    shadowRadius: 20,
+    elevation: 8,
+  },
+  cardLeft: {
+    flex: 1,
   },
   title: {
-    fontSize: 42,
+    fontSize: 30,
     fontFamily: "balooExtra",
-    lineHeight: 52,
-    marginBottom: -10,
+    marginBottom: 20, // ⬅️ separa del card
+    textAlign: "center",
   },
-  image: {
-    width: 155,
-    height: 130,
-    marginVertical: 20,
-    resizeMode: "cover",
-  },
-  input: {
-    width: "100%",
-    borderWidth: 2,
+  input1: {
+    width: "75%",
+    borderWidth: 1,
     borderRadius: 12,
-    padding: 12,
-    marginBottom: 10,
-    fontSize: 16,
+    padding: 10,
+    marginBottom: 12, // un poco más de espacio
+    fontSize: 14,
     fontFamily: "baloo",
+    textAlign: "center",
   },
-  cameraButton: {
-    flexDirection: "row",
-    alignItems: "center",
-    padding: 12,
+  input2: {
+    width: "60%",
+    borderWidth: 1,
     borderRadius: 12,
-    marginBottom: 15,
-    width: "100%",
-    justifyContent: "center",
-    gap: 6,
-  },
-  cameraIcon: {
-    width: 20,
-    height: 20,
-    marginRight: 10,
-  },
-  cameraText: {
+    padding: 10,
+    marginBottom: 12, // un poco más de espacio
+    fontSize: 14,
     fontFamily: "baloo",
-    fontSize: 16,
+    textAlign: "center",
   },
   saveButton: {
+    backgroundColor: "#F87171",
     padding: 12,
     borderRadius: 12,
-    width: "100%",
+    marginTop: 8,
     alignItems: "center",
+    width: "185",
   },
   saveText: {
     color: "#fff",
     fontSize: 16,
     fontFamily: "baloo",
     fontWeight: "bold",
+  },
+  dropImage: {
+    width: 80,
+    height: 80,
+    marginLeft: 15,
+    resizeMode: "contain",
   },
 });
