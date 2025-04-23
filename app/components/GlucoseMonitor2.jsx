@@ -4,18 +4,14 @@ import {
   View,
   TextInput,
   TouchableOpacity,
-  Image,
 } from "react-native";
 import { useState } from "react";
-import { useTheme } from "../context/ThemeContext";
 import { addDoc, collection } from "firebase/firestore";
 import { database } from "../config/fb";
-import bloodDrop from "../../assets/drop-monitor.png";
 import useThemeNew from "../hooks/useTheme";
 
 export default function GlucoseMonitor2({ array, setArray }) {
   const pepe = useThemeNew();
-  const { theme } = useTheme();
   const [newItem, setNewItem] = useState({
     valorGlucemico: "",
     createAt: new Date(),
@@ -27,8 +23,6 @@ export default function GlucoseMonitor2({ array, setArray }) {
     setNewItem({ valorGlucemico: "", createAt: new Date(), comentario: "" });
   };
 
-  const isDark = theme.background === "#1C1E26";
-
   return (
     <View style={styles.container}>
       <Text style={[styles.title, { color: pepe.text }]}>Glucose Monitor</Text>
@@ -36,7 +30,7 @@ export default function GlucoseMonitor2({ array, setArray }) {
         style={[
           styles.cardContainer,
           {
-            backgroundColor: isDark ? "#1E1E1E" : "rgba(255, 255, 255, 0.9)",
+            backgroundColor: "rgba(255, 255, 255, 0.9)",
           },
         ]}
       >
@@ -47,14 +41,10 @@ export default function GlucoseMonitor2({ array, setArray }) {
               setNewItem({ ...newItem, valorGlucemico: Number(number) })
             }
             placeholder="Nivel de glucosa (mg/dL)"
-            placeholderTextColor={isDark ? "#aaa" : "#666"}
+            placeholderTextColor={pepe.text}
             style={[
               styles.input1,
-              {
-                backgroundColor: isDark ? "#2C2F36" : "#fffef8",
-                color: theme.text,
-                borderColor: isDark ? "#444" : "#e0c989",
-              },
+              { borderColor: pepe.card.borderColor, color: pepe.text },
             ]}
             keyboardType="numeric"
           />
@@ -65,14 +55,10 @@ export default function GlucoseMonitor2({ array, setArray }) {
               setNewItem({ ...newItem, comentario: text })
             }
             placeholder="Comentario opcional"
-            placeholderTextColor={isDark ? "#aaa" : "#666"}
+            placeholderTextColor={pepe.text}
             style={[
               styles.input2,
-              {
-                backgroundColor: isDark ? "#2C2F36" : "#fffef8",
-                color: theme.text,
-                borderColor: isDark ? "#444" : "#e0c989",
-              },
+              { borderColor: pepe.card.borderColor, color: pepe.text },
             ]}
           />
 

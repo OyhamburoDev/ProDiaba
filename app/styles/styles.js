@@ -6,7 +6,7 @@ export const lightTheme = {
   header: {
     background: "#C1C8E4",
     text: "black",
-    borderBottomColor: "transparent", // Línea sutil para separar el header
+    borderBottomColor: "transparent",
     shadow: "rgba(0, 0, 0, 0.05)",
   },
   card: {
@@ -15,6 +15,7 @@ export const lightTheme = {
     colorSubtitle: "black",
     btnPrimario: "#007AFF",
     btnSecundario: "#007AFF",
+    borderColor: "#e0c989",
   },
   chart: {
     backgroundGradientFrom: "#ffffff",
@@ -40,6 +41,7 @@ export const darkTheme = {
     colorSubtitle: "#A8A8A8",
     btnPrimario: "#00C9A7",
     btnSecundario: "#FF4081",
+    borderColor: "#444",
   },
   chart: {
     backgroundGradientFrom: "#1E1E1E",

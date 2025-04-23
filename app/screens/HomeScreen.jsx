@@ -1,17 +1,15 @@
 import { StyleSheet, ScrollView, View, Image, Text } from "react-native";
 import GlucoseMonitor2 from "../components/GlucoseMonitor2";
 import { useState, useEffect } from "react";
-import { useTheme } from "../context/ThemeContext";
 import { collection, onSnapshot, query, orderBy } from "firebase/firestore";
 import { database } from "../config/fb";
 import CardCategory from "../components/CardCategory";
 import { LinearGradient } from "expo-linear-gradient";
 import { SafeAreaView } from "react-native-safe-area-context";
-import useThemeNew from "../hooks/useTheme";
+import useTheme from "../hooks/useTheme";
 
 export default function HomeScreen({ navigation }) {
-  const pepe = useThemeNew();
-  const { theme } = useTheme();
+  const theme = useTheme();
   const [array, setArray] = useState([]);
 
   useEffect(() => {
@@ -30,7 +28,7 @@ export default function HomeScreen({ navigation }) {
   }, []);
 
   return (
-    <LinearGradient colors={pepe.gradient} style={{ flex: 1 }}>
+    <LinearGradient colors={theme.gradient} style={{ flex: 1 }}>
       <SafeAreaView style={{ flex: 1, paddingTop: 0 }}>
         <ScrollView contentContainerStyle={styles.scrollContent}>
           <View style={styles.glucoseWrapper}>
@@ -41,7 +39,7 @@ export default function HomeScreen({ navigation }) {
             <GlucoseMonitor2 setArray={setArray} array={array} />
           </View>
           <View>
-            <Text style={[styles.titleOptions, { color: pepe.text }]}>
+            <Text style={[styles.titleOptions, { color: theme.text }]}>
               Opciones
             </Text>
           </View>

@@ -6,21 +6,18 @@ import {
   MaterialCommunityIcons,
   MaterialIcons,
 } from "@expo/vector-icons";
-import { useTheme } from "../context/ThemeContext";
 import HomeScreen from "../screens/HomeScreen";
-import { darkTheme } from "../styles/styles";
 import RecordsStack from "./RecordsStack";
 import GraphicsStack from "./GraphicsStack";
 import { useDispatch } from "react-redux";
 import { toggleTheme } from "../features/themeSlice";
 import { useSelector } from "react-redux";
-import useThemeNew from "../hooks/useTheme";
+import useTheme from "../hooks/useTheme";
 
 const Tab = createBottomTabNavigator();
 
 export default function TabsNavigator() {
-  const pepe = useThemeNew();
-  const { theme } = useTheme();
+  const theme = useTheme();
   const dispatch = useDispatch();
   const darkMode = useSelector((state) => state.theme.darkMode);
 
@@ -28,7 +25,7 @@ export default function TabsNavigator() {
     <Tab.Navigator
       screenOptions={({ route }) => ({
         headerStyle: {
-          backgroundColor: pepe.header.background,
+          backgroundColor: theme.header.background,
           elevation: 0,
           shadowColor: "transparent",
           borderBottomWidth: 0,
@@ -36,7 +33,7 @@ export default function TabsNavigator() {
         headerTitleStyle: {
           fontSize: 25,
           fontFamily: "balooSemi",
-          color: pepe.header.text,
+          color: theme.header.text,
         },
         tabBarItemStyle: {
           paddingVertical: 8,
@@ -74,10 +71,10 @@ export default function TabsNavigator() {
                 <MaterialIcons
                   name="sunny"
                   size={23}
-                  color={pepe.header.text}
+                  color={theme.header.text}
                 />
               ) : (
-                <Ionicons name="moon" size={23} color={pepe.header.text} />
+                <Ionicons name="moon" size={23} color={theme.header.text} />
               )}
             </TouchableOpacity>
           ),

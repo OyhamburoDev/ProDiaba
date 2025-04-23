@@ -1,5 +1,4 @@
 import { StatusBar, View } from "react-native";
-import { createStackNavigator } from "@react-navigation/stack";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { useCallback, useEffect } from "react";
@@ -7,13 +6,11 @@ import Navigator from "./app/navigation/Navigator";
 import { Provider } from "react-redux";
 import store from "./app/store/index";
 import { useSelector } from "react-redux";
-import useThemeNew from "./app/hooks/useTheme";
-
-const Stack = createStackNavigator();
+import useTheme from "./app/hooks/useTheme";
 
 export default function App() {
   const darkMode = useSelector((state) => state.theme.darkMode);
-  const pepe = useThemeNew();
+  const theme = useTheme();
 
   //fuentes
   const [fontsLoaded] = useFonts({
@@ -39,7 +36,7 @@ export default function App() {
       <Provider store={store}>
         <StatusBar
           barStyle={darkMode ? "light-content" : "dark-content"}
-          backgroundColor={pepe.header.background}
+          backgroundColor={theme.header.background}
         />
         <View style={{ flex: 1 }} onLayout={onLayout}>
           <Navigator />
