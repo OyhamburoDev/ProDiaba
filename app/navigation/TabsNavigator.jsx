@@ -8,14 +8,19 @@ import {
 } from "@expo/vector-icons";
 import { useTheme } from "../context/ThemeContext";
 import HomeScreen from "../screens/HomeScreen";
-import DetailScreen from "../screens/DetailScreen";
-import GraphicsScreen from "../screens/GraphicsScreen";
 import { darkTheme } from "../styles/styles";
+import RecordsStack from "./RecordsStack";
+import GraphicsStack from "./GraphicsStack";
+import { useDispatch } from "react-redux";
+import { toggleTheme } from "../features/themeSlice";
+import { useSelector } from "react-redux";
 
 const Tab = createBottomTabNavigator();
 
 export default function TabsNavigator() {
-  const { toggleTheme, theme } = useTheme();
+  const { theme } = useTheme();
+  const dispatch = useDispatch();
+  const darkMode = useSelector((state) => state.theme.darkMode);
 
   return (
     <Tab.Navigator
@@ -59,8 +64,11 @@ export default function TabsNavigator() {
 
         headerRight: () =>
           route.name === "Inicio" && (
-            <TouchableOpacity onPress={toggleTheme} style={{ marginRight: 20 }}>
-              {theme === darkTheme ? (
+            <TouchableOpacity
+              onPress={() => dispatch(toggleTheme())}
+              style={{ marginRight: 20 }}
+            >
+              {darkMode ? (
                 <MaterialIcons
                   name="sunny"
                   size={23}
@@ -86,7 +94,7 @@ export default function TabsNavigator() {
       />
       <Tab.Screen
         name="Registros"
-        component={DetailScreen}
+        component={RecordsStack}
         options={{
           title: "Últimos 10 días",
           tabBarLabel: "Registros",
@@ -101,7 +109,7 @@ export default function TabsNavigator() {
       />
       <Tab.Screen
         name="Graficos"
-        component={GraphicsScreen}
+        component={GraphicsStack}
         options={{
           title: "ProDiaba",
           tabBarLabel: "Gráficos",

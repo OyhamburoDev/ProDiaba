@@ -11,8 +11,10 @@ import { useTheme } from "../context/ThemeContext";
 import { addDoc, collection } from "firebase/firestore";
 import { database } from "../config/fb";
 import bloodDrop from "../../assets/drop-monitor.png";
+import useThemeNew from "../hooks/useTheme";
 
 export default function GlucoseMonitor2({ array, setArray }) {
+  const themeredux = useThemeNew();
   const { theme } = useTheme();
   const [newItem, setNewItem] = useState({
     valorGlucemico: "",
@@ -74,7 +76,7 @@ export default function GlucoseMonitor2({ array, setArray }) {
             ]}
           />
 
-          <TouchableOpacity style={styles.saveButton} onPress={onSend}>
+          <TouchableOpacity style={[styles.saveButton]} onPress={onSend}>
             <Text style={styles.saveText}>Guardar</Text>
           </TouchableOpacity>
         </View>
