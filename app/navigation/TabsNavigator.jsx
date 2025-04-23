@@ -14,10 +14,12 @@ import GraphicsStack from "./GraphicsStack";
 import { useDispatch } from "react-redux";
 import { toggleTheme } from "../features/themeSlice";
 import { useSelector } from "react-redux";
+import useThemeNew from "../hooks/useTheme";
 
 const Tab = createBottomTabNavigator();
 
 export default function TabsNavigator() {
+  const pepe = useThemeNew();
   const { theme } = useTheme();
   const dispatch = useDispatch();
   const darkMode = useSelector((state) => state.theme.darkMode);
@@ -26,7 +28,7 @@ export default function TabsNavigator() {
     <Tab.Navigator
       screenOptions={({ route }) => ({
         headerStyle: {
-          backgroundColor: "#C1C8E4",
+          backgroundColor: pepe.header.background,
           elevation: 0,
           shadowColor: "transparent",
           borderBottomWidth: 0,
@@ -34,7 +36,7 @@ export default function TabsNavigator() {
         headerTitleStyle: {
           fontSize: 25,
           fontFamily: "balooSemi",
-          color: theme.header.text,
+          color: pepe.header.text,
         },
         tabBarItemStyle: {
           paddingVertical: 8,
@@ -72,10 +74,10 @@ export default function TabsNavigator() {
                 <MaterialIcons
                   name="sunny"
                   size={23}
-                  color={theme.header.text}
+                  color={pepe.header.text}
                 />
               ) : (
-                <Ionicons name="moon" size={23} color={theme.header.text} />
+                <Ionicons name="moon" size={23} color={pepe.header.text} />
               )}
             </TouchableOpacity>
           ),

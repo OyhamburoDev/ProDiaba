@@ -1,13 +1,19 @@
 import { StyleSheet, Text, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import useThemeNew from "../hooks/useTheme";
 
 export default function GraphicsScreen() {
+  const pepe = useThemeNew();
   return (
-    <LinearGradient colors={["#C1C8E4", "#F7D9E3"]} style={{ flex: 1 }}>
+    <LinearGradient colors={pepe.gradient} style={{ flex: 1 }}>
       <View style={styles.container}>
-        <Text style={styles.title}>Gráfico de Glucosa</Text>
+        <Text style={[styles.title, { color: pepe.header.text }]}>
+          Gráfico de Glucosa
+        </Text>
 
-        <Text style={{ marginTop: 20 }}>Cargando gráfico...</Text>
+        <Text style={{ marginTop: 20, color: pepe.header.text }}>
+          Cargando gráfico...
+        </Text>
       </View>
     </LinearGradient>
   );

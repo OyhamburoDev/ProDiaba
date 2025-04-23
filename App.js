@@ -7,11 +7,13 @@ import Navigator from "./app/navigation/Navigator";
 import { Provider } from "react-redux";
 import store from "./app/store/index";
 import { useSelector } from "react-redux";
+import useThemeNew from "./app/hooks/useTheme";
 
 const Stack = createStackNavigator();
 
 export default function App() {
   const darkMode = useSelector((state) => state.theme.darkMode);
+  const pepe = useThemeNew();
 
   //fuentes
   const [fontsLoaded] = useFonts({
@@ -37,7 +39,7 @@ export default function App() {
       <Provider store={store}>
         <StatusBar
           barStyle={darkMode ? "light-content" : "dark-content"}
-          backgroundColor="#C1C8E4"
+          backgroundColor={pepe.header.background}
         />
         <View style={{ flex: 1 }} onLayout={onLayout}>
           <Navigator />

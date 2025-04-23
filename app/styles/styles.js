@@ -2,9 +2,9 @@ export const lightTheme = {
   background: "#FFF8DC",
   text: "black",
   buttonBg: "#f0f0f0",
+  gradient: ["#C1C8E4", "#F7D9E3"],
   header: {
-    // 🔹 Agregamos esta sección
-    background: "transparent",
+    background: "#C1C8E4",
     text: "black",
     borderBottomColor: "transparent", // Línea sutil para separar el header
     shadow: "rgba(0, 0, 0, 0.05)",
@@ -26,11 +26,12 @@ export const lightTheme = {
 };
 
 export const darkTheme = {
-  background: "#1C1E26", // Fondo principal oscuro
+  background: "#1C1E26",
   text: "#FDF2E9",
   buttonBg: "#333333",
+  gradient: ["#1C1E26", "#2B2C3E", "#3A3D5A"],
   header: {
-    background: "#1C1E26", // 🔹 Un poco más claro que el fondo para destacar
+    background: "#1C1E26",
     text: "#FDF2E9",
   },
   card: {

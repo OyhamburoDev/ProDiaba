@@ -14,7 +14,7 @@ import bloodDrop from "../../assets/drop-monitor.png";
 import useThemeNew from "../hooks/useTheme";
 
 export default function GlucoseMonitor2({ array, setArray }) {
-  const themeredux = useThemeNew();
+  const pepe = useThemeNew();
   const { theme } = useTheme();
   const [newItem, setNewItem] = useState({
     valorGlucemico: "",
@@ -31,7 +31,7 @@ export default function GlucoseMonitor2({ array, setArray }) {
 
   return (
     <View style={styles.container}>
-      <Text style={[styles.title, { color: theme.text }]}>Glucose Monitor</Text>
+      <Text style={[styles.title, { color: pepe.text }]}>Glucose Monitor</Text>
       <View
         style={[
           styles.cardContainer,

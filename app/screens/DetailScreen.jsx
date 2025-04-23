@@ -2,12 +2,14 @@ import { FlatList, Text, Pressable, StyleSheet, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import registros from "../../assets/data/registros.json";
 import { LinearGradient } from "expo-linear-gradient";
+import useThemeNew from "../hooks/useTheme";
 
 export default function DetailScreen() {
   const navigation = useNavigation();
+  const pepe = useThemeNew();
 
   return (
-    <LinearGradient colors={["#C1C8E4", "#F7D9E3"]} style={{ flex: 1 }}>
+    <LinearGradient colors={pepe.gradient} style={{ flex: 1 }}>
       <View style={styles.container}>
         <FlatList
           data={registros}
