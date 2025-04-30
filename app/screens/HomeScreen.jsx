@@ -1,8 +1,7 @@
 import { StyleSheet, ScrollView, View, Image, Text } from "react-native";
 import GlucoseMonitor2 from "../components/GlucoseMonitor2";
 import { useState, useEffect } from "react";
-import { collection, onSnapshot, query, orderBy } from "firebase/firestore";
-import { database } from "../config/fb";
+
 import CardCategory from "../components/CardCategory";
 import { LinearGradient } from "expo-linear-gradient";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -11,21 +10,6 @@ import useTheme from "../hooks/useTheme";
 export default function HomeScreen({ navigation }) {
   const theme = useTheme();
   const [array, setArray] = useState([]);
-
-  useEffect(() => {
-    const q = query(
-      collection(database, "monitorGlucose"),
-      orderBy("createAt", "desc")
-    );
-    const unsubscribe = onSnapshot(q, (snapshot) => {
-      const datos = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setArray(datos);
-    });
-    return () => unsubscribe();
-  }, []);
 
   return (
     <LinearGradient colors={theme.gradient} style={{ flex: 1 }}>

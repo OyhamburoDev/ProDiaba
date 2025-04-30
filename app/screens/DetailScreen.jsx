@@ -1,30 +1,34 @@
 import { FlatList, Text, Pressable, StyleSheet, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import registros from "../../assets/data/registros.json";
 import { LinearGradient } from "expo-linear-gradient";
 import useThemeNew from "../hooks/useTheme";
+import { useGetControlesQuery } from "../../api/services";
 
 export default function DetailScreen() {
   const navigation = useNavigation();
   const pepe = useThemeNew();
+  const { data } = useGetControlesQuery();
+
+  const fechas = data ? Object.keys(data) : [];
 
   return (
     <LinearGradient colors={pepe.gradient} style={{ flex: 1 }}>
       <View style={styles.container}>
         <FlatList
-          data={registros}
-          keyExtractor={(item) => item.fecha}
+          data={fechas}
+          keyExtractor={(item) => item}
           renderItem={({ item }) => (
             <Pressable
               style={styles.card}
-              onPress={() =>
+              onPress={() => {
+                const controles = Object.values(data[item]);
                 navigation.navigate("ItemScreen", {
-                  controles: item.controles,
-                  fecha: item.fecha,
-                })
-              }
+                  controles,
+                  fecha: item,
+                });
+              }}
             >
-              <Text style={styles.fecha}>{item.fecha}</Text>
+              <Text style={styles.fecha}>{item}</Text>
             </Pressable>
           )}
         />

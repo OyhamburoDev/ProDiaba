@@ -6,9 +6,8 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { useState } from "react";
-import { addDoc, collection } from "firebase/firestore";
-import { database } from "../config/fb";
 import useThemeNew from "../hooks/useTheme";
+import { useAddNewControlMutation } from "../../api/services";
 
 export default function GlucoseMonitor2({ array, setArray }) {
   const pepe = useThemeNew();
@@ -18,9 +17,34 @@ export default function GlucoseMonitor2({ array, setArray }) {
     comentario: "",
   });
 
-  const onSend = async () => {
-    await addDoc(collection(database, "monitorGlucose"), newItem);
-    setNewItem({ valorGlucemico: "", createAt: new Date(), comentario: "" });
+  const [addControl] = useAddNewControlMutation();
+
+  const onSend = () => {
+    const fecha = newItem.createAt.toISOString().split("T")[0]; // ejemplo: "2025-04-30"
+    const hora = newItem.createAt.toTimeString().slice(0, 5); // ejemplo: "14:30"
+
+    const controlFormateado = {
+      glucemia: newItem.valorGlucemico,
+      comentario: newItem.comentario,
+      hora: hora,
+    };
+    console.log("📤 Enviando a Firebase:", {
+      fecha,
+      control: controlFormateado,
+    });
+    addControl({ fecha, control: controlFormateado })
+      .unwrap()
+      .then(() => {
+        console.log("✅ Control guardado");
+        setNewItem({
+          valorGlucemico: "",
+          comentario: "",
+          createAt: new Date(),
+        });
+      })
+      .catch((err) => {
+        console.error("❌ Error:", err);
+      });
   };
 
   return (
