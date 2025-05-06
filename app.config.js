@@ -8,12 +8,6 @@ export default {
     orientation: "portrait",
     userInterfaceStyle: "light",
     newArchEnabled: true,
-    splash: {
-      image: "./assets/pablo.png",
-      resizeMode: "contain",
-      backgroundColor: "#C1C8E4",
-    },
-    plugins: ["expo-font"],
     ios: {
       supportsTablet: true,
     },
@@ -26,5 +20,16 @@ export default {
     web: {
       favicon: "./assets/favicon.png",
     },
+    plugins: [
+      [
+        "expo-splash-screen",
+        {
+          image: "./assets/pablo.png",
+          imageWidth: 200,
+          resizeMode: "contain",
+          backgroundColor: "#ffffff",
+        },
+      ],
+    ],
   },
 };
