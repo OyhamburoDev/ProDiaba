@@ -1,17 +1,29 @@
 import { useState } from "react";
-import { View, StyleSheet, Text, Button, Image } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Text,
+  Button,
+  Image,
+  TouchableOpacity,
+} from "react-native";
 import { usePostProfileImageMutation } from "../../api/services";
 import { useDispatch, useSelector } from "react-redux";
 import * as ImagePiker from "expo-image-picker";
 import { setCameraImage } from "../features/userSlice";
 import { LinearGradient } from "expo-linear-gradient";
 import { Pressable } from "react-native";
+import useThemeNew from "../hooks/useTheme";
+import { useGetProfileImageQuery } from "../../api/services";
+import { Ionicons } from "@expo/vector-icons";
 
 const ImageSelectorScreen = ({ navigation }) => {
   const [image, setImage] = useState(null);
   const [triggerPostImage, result] = usePostProfileImageMutation();
   const { localId } = useSelector((state) => state.auth);
+  const { data, isLoading, error } = useGetProfileImageQuery(localId);
   const dispatch = useDispatch();
+  const theme = useThemeNew();
 
   const confirmImage = () => {
     try {
@@ -50,11 +62,20 @@ const ImageSelectorScreen = ({ navigation }) => {
     }
   };
 
+  if (isLoading) return <Text>Cargando imagen...</Text>;
+  if (error) return <Text>Error al cargar imagen</Text>;
+
   return (
-    <LinearGradient
-      colors={["#C1C8E4", "#F7D9E3"]}
-      style={styles.screenGradient}
-    >
+    <LinearGradient colors={theme.gradient} style={styles.screenGradient}>
+      {/* Header personalizado */}
+      <View style={styles.header}>
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={styles.backButton}
+        >
+          <Ionicons name="arrow-back" size={24} color={theme.text} />
+        </TouchableOpacity>
+      </View>
       <View style={styles.container}>
         {image ? (
           <>
@@ -75,6 +96,15 @@ const ImageSelectorScreen = ({ navigation }) => {
               </LinearGradient>
             </Pressable>
           </>
+        ) : data?.image ? (
+          <>
+            <Image source={{ uri: data.image }} style={styles.image} />
+
+            <Pressable style={styles.button} onPress={pickImage}>
+              <Text style={styles.buttonText}>Tomar otra foto</Text>
+            </Pressable>
+            {/* No mostramos "Confirmar" acá porque no hay nada nuevo que confirmar */}
+          </>
         ) : (
           <View style={styles.noPhotoContainer}>
             <Text style={styles.noPhotoText}>No hay foto para mostrar</Text>
@@ -94,6 +124,16 @@ export default ImageSelectorScreen;
 const styles = StyleSheet.create({
   screenGradient: {
     flex: 1,
+  },
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingTop: 50, // Ajusta según necesidad (iOS/Android)
+    paddingHorizontal: 15,
+    paddingBottom: 15,
+  },
+  backButton: {
+    padding: 8,
   },
   container: {
     padding: 10,

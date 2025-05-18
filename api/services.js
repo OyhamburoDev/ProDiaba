@@ -22,7 +22,7 @@ export const glucoseApi = createApi({
       providesTags: ["profileImageGet"],
     }),
     postProfileImage: builder.mutation({
-      query: (image, localId) => ({
+      query: ({ image, localId }) => ({
         url: `profileImages/${localId}.json`,
         method: "PUT",
         body: { image },

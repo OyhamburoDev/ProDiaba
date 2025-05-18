@@ -65,6 +65,7 @@ const LoginScreen = ({ navigation }) => {
         setUser({
           user: respuesta.email,
           token: respuesta.idToken,
+          localId: respuesta.localId,
         })
       );
 

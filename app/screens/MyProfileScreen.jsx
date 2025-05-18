@@ -4,10 +4,12 @@ import { useSelector } from "react-redux";
 import { useGetProfileImageQuery } from "../../api/services";
 import { LinearGradient } from "expo-linear-gradient";
 import { Pressable } from "react-native";
+import useThemeNew from "../hooks/useTheme";
 
 const MyProfileScreen = ({ navigation }) => {
   const { imageCamera, localId } = useSelector((state) => state.auth);
   const { data: imageFromBase } = useGetProfileImageQuery(localId);
+  const theme = useThemeNew();
 
   const defaultImage = "../../assets/miPerfil.jpg";
 
@@ -16,7 +18,11 @@ const MyProfileScreen = ({ navigation }) => {
   };
 
   return (
-    <LinearGradient colors={["#C1C8E4", "#F7D9E3"]} style={styles.gradient}>
+    <LinearGradient colors={theme.gradient} style={styles.gradient}>
+      {/* Header personalizado */}
+      <View style={styles.header}>
+        <Text style={[styles.headerText, { color: theme.text }]}>Perfil</Text>
+      </View>
       <View style={styles.container}>
         {imageFromBase || imageCamera ? (
           <Image
@@ -53,6 +59,17 @@ export default MyProfileScreen;
 const styles = StyleSheet.create({
   gradient: {
     flex: 1,
+  },
+  header: {
+    paddingTop: 60, // Ajusta según necesidad (50-60 para iOS, 20-30 para Android)
+    paddingHorizontal: 20,
+    paddingBottom: 15,
+  },
+  headerText: {
+    fontSize: 25,
+    fontFamily: "balooSemi",
+    color: "#fff",
+    textAlign: "center",
   },
   container: {
     padding: 10,

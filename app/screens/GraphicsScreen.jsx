@@ -3,15 +3,15 @@ import { LinearGradient } from "expo-linear-gradient";
 import useThemeNew from "../hooks/useTheme";
 
 export default function GraphicsScreen() {
-  const pepe = useThemeNew();
+  const theme = useThemeNew();
   return (
-    <LinearGradient colors={pepe.gradient} style={{ flex: 1 }}>
+    <LinearGradient colors={theme.gradient} style={{ flex: 1 }}>
       <View style={styles.container}>
-        <Text style={[styles.title, { color: pepe.header.text }]}>
+        <Text style={[styles.title, { color: theme.header.text }]}>
           Gráfico de Glucosa
         </Text>
 
-        <Text style={{ marginTop: 20, color: pepe.header.text }}>
+        <Text style={{ marginTop: 20, color: theme.header.text }}>
           Cargando gráfico...
         </Text>
       </View>

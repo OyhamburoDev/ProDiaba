@@ -126,6 +126,7 @@ export default function TabsNavigator() {
           title: "Perfil",
           tabBarLabel: "Mi Perfil",
           headerTitleAlign: "center",
+          headerShown: false,
           tabBarIcon: ({ color, size }) => (
             <Octicons name="person" size={size} color={color} />
           ),
