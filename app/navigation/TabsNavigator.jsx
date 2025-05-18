@@ -6,9 +6,11 @@ import {
   MaterialCommunityIcons,
   MaterialIcons,
 } from "@expo/vector-icons";
+import Octicons from "@expo/vector-icons/Octicons";
 import HomeScreen from "../screens/HomeScreen";
 import RecordsStack from "./RecordsStack";
 import GraphicsStack from "./GraphicsStack";
+import MyProfileStackNavigator from "./MyProfileStackNavigator";
 import { useDispatch } from "react-redux";
 import { toggleTheme } from "../features/themeSlice";
 import { useSelector } from "react-redux";
@@ -114,6 +116,18 @@ export default function TabsNavigator() {
           tabBarLabel: "Gráficos",
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="bar-chart-outline" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="My Profile"
+        component={MyProfileStackNavigator}
+        options={{
+          title: "Perfil",
+          tabBarLabel: "Mi Perfil",
+          headerTitleAlign: "center",
+          tabBarIcon: ({ color, size }) => (
+            <Octicons name="person" size={size} color={color} />
           ),
         }}
       />

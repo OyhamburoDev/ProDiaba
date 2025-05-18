@@ -1,18 +1,18 @@
 export const lightTheme = {
   background: "#FFF8DC",
-  text: "black",
+  text: "#4A4A6A",
   buttonBg: "#f0f0f0",
   gradient: ["#C1C8E4", "#F7D9E3"],
   header: {
     background: "#C1C8E4",
-    text: "black",
+    text: "#4A4A6A",
     borderBottomColor: "transparent",
     shadow: "rgba(0, 0, 0, 0.05)",
   },
   card: {
     background: "white",
-    colorTitle: "black",
-    colorSubtitle: "black",
+    colorTitle: "#4A4A6A",
+    colorSubtitle: "#4A4A6A",
     btnPrimario: "#007AFF",
     btnSecundario: "#007AFF",
     borderColor: "#e0c989",

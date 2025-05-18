@@ -1,10 +1,13 @@
 import { View, Text, Card, Pressable, StyleSheet } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
+import useThemeNew from "../hooks/useTheme";
+import { BlurView } from "expo-blur";
 
 export default function CardCategory({ title, navigation, tabTitle }) {
   const iconName = title === "Registros" ? "schedule" : "bar-chart";
+  const theme = useThemeNew();
   return (
-    <View style={styles.cardCnt}>
+    <BlurView intensity={25} tint="light" style={styles.cardCnt}>
       <Pressable
         onPress={() => navigation.navigate(tabTitle, { categoria: title })}
         style={styles.pressable}
@@ -13,25 +16,27 @@ export default function CardCategory({ title, navigation, tabTitle }) {
           name={iconName}
           size={28}
           color="black"
-          style={styles.icon}
+          style={{ color: theme.text }}
         />
-        <Text style={styles.text}>{title}</Text>
+        <Text style={[styles.text, { color: theme.text }]}>{title}</Text>
       </Pressable>
-    </View>
+    </BlurView>
   );
 }
 
 const styles = StyleSheet.create({
   cardCnt: {
-    backgroundColor: "rgba(255, 255, 255, 0.75)",
     borderRadius: 28,
     justifyContent: "center",
-    shadowColor: "rgba(255, 255, 255, 0.75)",
-
-    elevation: 8,
     padding: 25,
     paddingLeft: 20,
     paddingRight: 20,
+    overflow: "hidden",
+    backgroundColor: "rgba(255, 255, 255, 0.29)",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 10 },
+    shadowOpacity: 0.05,
+    shadowRadius: 20,
   },
   pressable: {
     flexDirection: "row",

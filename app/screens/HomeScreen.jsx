@@ -1,10 +1,16 @@
-import { StyleSheet, ScrollView, View, Image, Text } from "react-native";
+import {
+  StyleSheet,
+  ScrollView,
+  View,
+  Image,
+  Text,
+  StatusBar,
+  Platform,
+} from "react-native";
 import GlucoseMonitor2 from "../components/GlucoseMonitor2";
-import { useState, useEffect } from "react";
-
+import { useState } from "react";
 import CardCategory from "../components/CardCategory";
 import { LinearGradient } from "expo-linear-gradient";
-import { SafeAreaView } from "react-native-safe-area-context";
 import useTheme from "../hooks/useTheme";
 
 export default function HomeScreen({ navigation }) {
@@ -13,7 +19,17 @@ export default function HomeScreen({ navigation }) {
 
   return (
     <LinearGradient colors={theme.gradient} style={{ flex: 1 }}>
-      <SafeAreaView style={{ flex: 1, paddingTop: 0 }}>
+      <StatusBar
+        backgroundColor={theme.header.background}
+        barStyle="light-content"
+        translucent={false} // 👈 importante
+      />
+      <View
+        style={{
+          flex: 1,
+          paddingTop: Platform.OS === "android" ? 0 : 0, // iOS o Android
+        }}
+      >
         <ScrollView contentContainerStyle={styles.scrollContent}>
           <View style={styles.glucoseWrapper}>
             <Image
@@ -41,7 +57,7 @@ export default function HomeScreen({ navigation }) {
             />
           </View>
         </ScrollView>
-      </SafeAreaView>
+      </View>
     </LinearGradient>
   );
 }
@@ -56,7 +72,6 @@ const styles = StyleSheet.create({
   cntView: {
     flexDirection: "row",
     justifyContent: "space-around",
-
     paddingHorizontal: 10,
     gap: 10,
   },

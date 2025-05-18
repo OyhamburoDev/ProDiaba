@@ -133,12 +133,10 @@ const styles = StyleSheet.create({
     borderRadius: 24,
     overflow: "hidden",
     backgroundColor: "rgba(255, 255, 255, 0.13)",
-    // Eliminamos completamente el borde que no te gustaba
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 10 },
     shadowOpacity: 0.05,
     shadowRadius: 20,
-    // elevation: 5,
   },
   imageOverlay: {
     position: "relative",

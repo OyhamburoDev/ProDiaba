@@ -4,13 +4,18 @@ import {
   View,
   TextInput,
   TouchableOpacity,
+  Pressable,
 } from "react-native";
 import { useState } from "react";
 import useThemeNew from "../hooks/useTheme";
 import { useAddNewControlMutation } from "../../api/services";
+import { BlurView } from "expo-blur";
+import { LinearGradient } from "expo-linear-gradient";
 
 export default function GlucoseMonitor2({ array, setArray }) {
-  const pepe = useThemeNew();
+  const [focus1, setFocus1] = useState(false);
+  const [focus2, setFocus2] = useState(false);
+  const theme = useThemeNew();
   const [newItem, setNewItem] = useState({
     valorGlucemico: "",
     createAt: new Date(),
@@ -49,15 +54,8 @@ export default function GlucoseMonitor2({ array, setArray }) {
 
   return (
     <View style={styles.container}>
-      <Text style={[styles.title, { color: pepe.text }]}>Glucose Monitor</Text>
-      <View
-        style={[
-          styles.cardContainer,
-          {
-            backgroundColor: "rgba(255, 255, 255, 0.9)",
-          },
-        ]}
-      >
+      <Text style={[styles.title, { color: theme.text }]}>Glucose Monitor</Text>
+      <BlurView intensity={25} tint="light" style={styles.cardContainer}>
         <View style={styles.cardLeft}>
           <TextInput
             value={String(newItem.valorGlucemico)}
@@ -65,10 +63,20 @@ export default function GlucoseMonitor2({ array, setArray }) {
               setNewItem({ ...newItem, valorGlucemico: Number(number) })
             }
             placeholder="Nivel de glucosa (mg/dL)"
-            placeholderTextColor={pepe.text}
+            placeholderTextColor="rgba(0, 0, 0, 0.59)"
+            onFocus={() => setFocus1(true)}
+            onBlur={() => setFocus1(false)}
             style={[
               styles.input1,
-              { borderColor: pepe.card.borderColor, color: pepe.text },
+              {
+                color: theme.text,
+                borderColor: focus1
+                  ? "rgba(197, 202, 233, 0.8)"
+                  : "rgba(255, 255, 255, 0)",
+                backgroundColor: focus1
+                  ? "rgba(255, 255, 255, 0.5)"
+                  : "rgba(255, 255, 255, 0.83)",
+              },
             ]}
             keyboardType="numeric"
           />
@@ -79,18 +87,41 @@ export default function GlucoseMonitor2({ array, setArray }) {
               setNewItem({ ...newItem, comentario: text })
             }
             placeholder="Comentario opcional"
-            placeholderTextColor={pepe.text}
+            placeholderTextColor="rgba(0, 0, 0, 0.59)"
+            onFocus={() => setFocus2(true)}
+            onBlur={() => setFocus2(false)}
             style={[
               styles.input2,
-              { borderColor: pepe.card.borderColor, color: pepe.text },
+              {
+                color: theme.text,
+                borderColor: focus2
+                  ? "rgba(197, 202, 233, 0.8)"
+                  : "rgba(255, 255, 255, 0)",
+                backgroundColor: focus2
+                  ? "rgba(255, 255, 255, 0.5)"
+                  : "rgba(255, 255, 255, 0.83)",
+              },
             ]}
           />
 
-          <TouchableOpacity style={[styles.saveButton]} onPress={onSend}>
-            <Text style={styles.saveText}>Guardar</Text>
-          </TouchableOpacity>
+          <Pressable
+            onPress={onSend}
+            style={({ pressed }) => [
+              styles.saveButton,
+              pressed && styles.buttonPressed,
+            ]}
+          >
+            <LinearGradient
+              colors={["#4f6edc", "#6174ff"]}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 1 }}
+              style={styles.gradient}
+            >
+              <Text style={styles.saveText}>Guardar</Text>
+            </LinearGradient>
+          </Pressable>
         </View>
-      </View>
+      </BlurView>
     </View>
   );
 }
@@ -106,16 +137,14 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     padding: 20,
-    borderRadius: 28,
-    backgroundColor: "rgba(255, 255, 255, 0.15)", // translúcido
-    borderColor: "rgba(255, 255, 255, 0.3)",
-    borderWidth: 1,
+    borderRadius: 24,
+    overflow: "hidden",
+    backgroundColor: "rgba(255, 255, 255, 0.13)",
 
-    shadowColor: "rgba(255, 255, 255, 0.75)",
-    shadowOffset: { width: 0, height: 6 },
-    shadowOpacity: 0.1,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 10 },
+    shadowOpacity: 0.05,
     shadowRadius: 20,
-    elevation: 8,
   },
   cardLeft: {
     flex: 1,
@@ -128,13 +157,16 @@ const styles = StyleSheet.create({
   },
   input1: {
     width: "75%",
-    borderWidth: 1,
+
     borderRadius: 12,
     padding: 10,
     marginBottom: 12, // un poco más de espacio
     fontSize: 14,
     fontFamily: "baloo",
     textAlign: "center",
+    backgroundColor: "rgba(255, 255, 255, 0.83)",
+    borderWidth: 1,
+    borderColor: "rgba(255, 255, 255, 0)",
   },
   input2: {
     width: "60%",
@@ -145,25 +177,31 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontFamily: "baloo",
     textAlign: "center",
+    backgroundColor: "rgba(255, 255, 255, 0.83)",
   },
   saveButton: {
-    backgroundColor: "#F87171",
-    padding: 12,
-    borderRadius: 12,
+    borderRadius: 14,
     marginTop: 8,
-    alignItems: "center",
-    width: "185",
+    width: "65%",
+    overflow: "hidden",
   },
+
+  gradient: {
+    paddingVertical: 12,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 14,
+  },
+
+  buttonPressed: {
+    opacity: 0.8,
+    transform: [{ scale: 0.98 }],
+  },
+
   saveText: {
-    color: "#fff",
+    color: "#FFFFFF",
     fontSize: 16,
     fontFamily: "baloo",
     fontWeight: "bold",
-  },
-  dropImage: {
-    width: 80,
-    height: 80,
-    marginLeft: 15,
-    resizeMode: "contain",
   },
 });
