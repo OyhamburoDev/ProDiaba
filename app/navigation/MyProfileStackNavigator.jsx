@@ -2,13 +2,12 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { View, Text } from "react-native";
 import MyProfileScreen from "../screens/MyProfileScreen";
 import ImageSelectorScreen from "../screens/ImageSelectorScreen";
+import ListAdressScreen from "../screens/ListAdressScreen";
 import LocationSelectorScreen from "../screens/LocationSelectorScreen";
-import useThemeNew from "../hooks/useTheme";
 
 const Stack = createNativeStackNavigator();
 
 const MyProfileStackNavigator = () => {
-  const theme = useThemeNew();
   return (
     <View style={{ flex: 1 }}>
       <Stack.Navigator
@@ -22,6 +21,7 @@ const MyProfileStackNavigator = () => {
           name="ImageSelectorScreen"
           component={ImageSelectorScreen}
         />
+        <Stack.Screen name="ListAdressScreen" component={ListAdressScreen} />
         <Stack.Screen
           name="LocationSelectorScreen"
           component={LocationSelectorScreen}

@@ -1,12 +1,5 @@
 import { useState } from "react";
-import {
-  View,
-  StyleSheet,
-  Text,
-  Button,
-  Image,
-  TouchableOpacity,
-} from "react-native";
+import { View, StyleSheet, Text, Image, TouchableOpacity } from "react-native";
 import { usePostProfileImageMutation } from "../../api/services";
 import { useDispatch, useSelector } from "react-redux";
 import * as ImagePiker from "expo-image-picker";

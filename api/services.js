@@ -5,7 +5,7 @@ const baseURL = "https://glucose-tracker-mobile-default-rtdb.firebaseio.com/";
 export const glucoseApi = createApi({
   reducerPath: "glucoseApi",
   baseQuery: fetchBaseQuery({ baseUrl: baseURL }),
-  tagTypes: ["profileImageGet"],
+  tagTypes: ["profileImageGet", "userLocation"],
   endpoints: (builder) => ({
     getControles: builder.query({
       query: () => "glucoseMonitor.json",
@@ -29,6 +29,18 @@ export const glucoseApi = createApi({
       }),
       invalidatesTags: ["profileImageGet"],
     }),
+    //obetener la localización de firebase
+    getUserLocation: builder.query({
+      query: (localId) => `locations/${localId}.json`,
+      providesTags: ["userLocation"],
+    }),
+    postUserLocation: builder.mutation({
+      query: ({ localId, location }) => ({
+        url: `locations/${localId}.json`,
+        method: "PUT",
+        body: location,
+      }),
+    }),
   }),
 });
 
@@ -37,4 +49,6 @@ export const {
   useAddNewControlMutation,
   useGetProfileImageQuery,
   usePostProfileImageMutation,
+  useGetUserLocationQuery,
+  usePostUserLocationMutation,
 } = glucoseApi;

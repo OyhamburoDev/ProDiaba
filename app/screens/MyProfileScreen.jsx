@@ -1,5 +1,6 @@
 import { View, Text, Image, StyleSheet, Button } from "react-native";
 import ImageSelectorScreen from "./ImageSelectorScreen";
+import ListAdressScreen from "./ListAdressScreen";
 import { useSelector } from "react-redux";
 import { useGetProfileImageQuery } from "../../api/services";
 import { LinearGradient } from "expo-linear-gradient";
@@ -14,7 +15,11 @@ const MyProfileScreen = ({ navigation }) => {
   const defaultImage = "../../assets/miPerfil.jpg";
 
   const launchCamera = () => {
-    navigation.navigate(ImageSelectorScreen);
+    navigation.navigate("ImageSelectorScreen");
+  };
+
+  const handleGoToLocation = () => {
+    navigation.navigate("ListAdressScreen");
   };
 
   return (
@@ -39,10 +44,10 @@ const MyProfileScreen = ({ navigation }) => {
         )}
 
         <Pressable style={styles.button} onPress={launchCamera}>
-          <Text style={styles.buttonText}>Agregar foto de Perfil</Text>
+          <Text style={styles.buttonText}>Mi foto de perfil</Text>
         </Pressable>
 
-        <Pressable style={styles.button}>
+        <Pressable style={styles.button} onPress={handleGoToLocation}>
           <Text style={styles.buttonText}>Mi dirección</Text>
         </Pressable>
 
