@@ -35,7 +35,10 @@ const ListAdressScreen = ({ navigation }) => {
       {isLoading ? (
         <Text style={{ color: theme.text }}>Cargando...</Text>
       ) : locationFromBase?.address ? (
-        <AddressItem navigation={navigation} />
+        <AddressItem
+          navigation={navigation}
+          address={locationFromBase.address}
+        />
       ) : (
         <View style={styles.card}>
           <Text style={styles.label}>No hay dirección guardada</Text>

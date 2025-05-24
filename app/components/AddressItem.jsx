@@ -4,8 +4,7 @@ import { useDeleteUserLocationMutation } from "../../api/services";
 import { clearLocation } from "../features/locationSlice";
 import { Ionicons } from "@expo/vector-icons";
 
-const AddressItem = ({ navigation }) => {
-  const address = useSelector((state) => state.location.address);
+const AddressItem = ({ navigation, address }) => {
   const dispatch = useDispatch(); // REdux
   const [deleteUserLocation] = useDeleteUserLocationMutation();
   const { localId } = useSelector((state) => state.auth);
