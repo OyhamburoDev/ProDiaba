@@ -40,6 +40,14 @@ export const glucoseApi = createApi({
         method: "PUT",
         body: location,
       }),
+      invalidatesTags: ["userLocation"],
+    }),
+    deleteUserLocation: builder.mutation({
+      query: (localId) => ({
+        url: `locations/${localId}.json`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["userLocation"],
     }),
   }),
 });
@@ -51,4 +59,5 @@ export const {
   usePostProfileImageMutation,
   useGetUserLocationQuery,
   usePostUserLocationMutation,
+  useDeleteUserLocationMutation,
 } = glucoseApi;
