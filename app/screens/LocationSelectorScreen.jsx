@@ -86,7 +86,9 @@ export default function LocationSelectorScreen({ navigation }) {
         </Text>
         {tempLocation ? (
           <>
-            <Text>{address}</Text>
+            <Text style={[styles.addressText, { color: theme.header.text }]}>
+              {address}
+            </Text>
             <MapViewComponent
               latitude={tempLocation.latitude}
               longitude={tempLocation.longitude}
@@ -129,13 +131,18 @@ const styles = StyleSheet.create({
     alignContent: "center",
     alignItems: "center",
   },
+  addressText: {
+    fontSize: 16,
+    textAlign: "center",
+    marginBottom: 10,
+    paddingHorizontal: 20,
+  },
   confirmButton: {
-    backgroundColor: "blue",
+    backgroundColor: "#4f6edc",
     paddingVertical: 12,
     paddingHorizontal: 25,
     borderRadius: 12,
     marginTop: 10,
-    elevation: 3,
   },
   deleteButtonText: {
     color: "white",

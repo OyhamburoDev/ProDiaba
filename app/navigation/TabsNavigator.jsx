@@ -26,6 +26,7 @@ export default function TabsNavigator() {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
+        tabBarHideOnKeyboard: true,
         headerStyle: {
           backgroundColor: theme.header.background,
           elevation: 0,

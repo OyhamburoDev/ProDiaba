@@ -7,10 +7,40 @@ import { Provider } from "react-redux";
 import store from "./app/store/index";
 import { useSelector } from "react-redux";
 import useTheme from "./app/hooks/useTheme";
+import userRepository from "./app/dataBases/userDao";
+import { setUser } from "./app/features/userSlice";
 
 export default function App() {
   const darkMode = useSelector((state) => state.theme.darkMode);
   const theme = useTheme();
+
+  useEffect(() => {
+    // primera vez que se inicia la app ejecuta la base de datos
+    const initDB = async () => {
+      try {
+        await userRepository.init();
+        // await userRepository.deleteUser()
+
+        // che hay un usuario guardado en la db?
+        const user = await userRepository.getUser();
+        console.log("user", user);
+        if (user) {
+          // si existe ---> guardarlo en redux
+          store.dispatch(
+            setUser({
+              user: user.email,
+              token: user.token,
+              refreshToken: user.refreshToken,
+              localId: user.localId,
+            })
+          );
+        }
+      } catch (error) {
+        console.error("Error al iniciar la base datos local", error);
+      }
+    };
+    initDB();
+  }, []);
 
   //fuentes
   const [fontsLoaded] = useFonts({

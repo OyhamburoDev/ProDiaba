@@ -1,5 +1,17 @@
-import react, { useState } from "react";
-import { View, Text, Pressable, StyleSheet, Image, Alert } from "react-native";
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  Pressable,
+  StyleSheet,
+  Image,
+  Alert,
+  ScrollView,
+  KeyboardAvoidingView,
+  Platform,
+  TouchableWithoutFeedback,
+  Keyboard,
+} from "react-native";
 import InputForm from "../components/InputForm";
 import SubmitButton from "../components/SubmitButton";
 import { useSignUpMutation } from "../../api/authServices";
@@ -17,7 +29,7 @@ const SignupScreen = ({ navigation }) => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errorConfirmP, setErrorConfirmp] = useState("");
 
-  const [signUp, { isLoading, error }] = useSignUpMutation();
+  const [signUp, { isLoading }] = useSignUpMutation();
 
   const theme = useTheme();
 
@@ -30,7 +42,7 @@ const SignupScreen = ({ navigation }) => {
       NETWORK_REQUEST_FAILED: "Error de red. Verifica tu conexión.",
     };
 
-    return errorMessages[errorCode] || "Ocurrio un error inesperado.";
+    return errorMessages[errorCode] || "Ocurrió un error inesperado.";
   };
 
   const onSubmit = async () => {
@@ -51,8 +63,8 @@ const SignupScreen = ({ navigation }) => {
       return;
     }
 
-    if (password != confirmPassword) {
-      setErrorConfirmp("Las contrasenas deben coincidir");
+    if (password !== confirmPassword) {
+      setErrorConfirmp("Las contraseñas deben coincidir");
       return;
     }
 
@@ -62,10 +74,12 @@ const SignupScreen = ({ navigation }) => {
         password,
         returnSecureToken: true,
       }).unwrap();
+
       console.log("Usuario creado:", result);
-      Alert.alert("¡Exito!", "El registro fue completado", [
+      Alert.alert("¡Éxito!", "El registro fue completado", [
         { text: "OK", onPress: () => navigation.navigate("Login") },
       ]);
+
       setEmail("");
       setPassword("");
       setConfirmPassword("");
@@ -78,38 +92,57 @@ const SignupScreen = ({ navigation }) => {
 
   return (
     <LinearGradient colors={["#C1C8E4", "#F7D9E3"]} style={styles.gradient}>
-      <View style={styles.cntLogin}>
-        <Text style={styles.title}>Signup</Text>
-        <BlurView intensity={25} tint="light" style={styles.glassCard}>
-          <Image
-            source={require("../../assets/hands-login-blue.png")}
-            style={styles.imageOverlay}
-          />
-          <InputForm label={"Email"} onchange={setEmail} error={errorEmail} />
-          <InputForm
-            label={"Password"}
-            onchange={setPassword}
-            error={errorPassword}
-            isSecure={true}
-          />
-          <InputForm
-            label={"Confirm password"}
-            onchange={setConfirmPassword}
-            error={errorConfirmP}
-            isSecure={true}
-          />
-          <SubmitButton onPress={onSubmit} title="Send" />
-          <View style={styles.footer}>
-            <Text style={styles.footerText}>Ya tienes cuenta?</Text>
-            <Pressable
-              onPress={() => navigation.navigate("Login")}
-              style={({ pressed }) => ({ opacity: pressed ? 0.6 : 1 })}
-            >
-              <Text style={styles.footerLink}>Login</Text>
-            </Pressable>
-          </View>
-        </BlurView>
-      </View>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <KeyboardAvoidingView
+          style={{ flex: 1 }}
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+          keyboardVerticalOffset={Platform.OS === "ios" ? 60 : 0}
+        >
+          <ScrollView
+            contentContainerStyle={styles.cntLogin}
+            keyboardShouldPersistTaps="handled"
+          >
+            <Text style={styles.title}>Signup</Text>
+            <BlurView intensity={25} tint="light" style={styles.glassCard}>
+              <Image
+                source={require("../../assets/hands-login-blue.png")}
+                style={styles.imageOverlay}
+              />
+              <InputForm
+                label={"Email"}
+                onchange={setEmail}
+                error={errorEmail}
+              />
+              <InputForm
+                label={"Password"}
+                onchange={setPassword}
+                error={errorPassword}
+                isSecure={true}
+              />
+              <InputForm
+                label={"Confirm password"}
+                onchange={setConfirmPassword}
+                error={errorConfirmP}
+                isSecure={true}
+              />
+              <SubmitButton
+                onPress={onSubmit}
+                title="Send"
+                isLoading={isLoading}
+              />
+              <View style={styles.footer}>
+                <Text style={styles.footerText}>¿Ya tenés cuenta?</Text>
+                <Pressable
+                  onPress={() => navigation.navigate("Login")}
+                  style={({ pressed }) => ({ opacity: pressed ? 0.6 : 1 })}
+                >
+                  <Text style={styles.footerLink}>Login</Text>
+                </Pressable>
+              </View>
+            </BlurView>
+          </ScrollView>
+        </KeyboardAvoidingView>
+      </TouchableWithoutFeedback>
     </LinearGradient>
   );
 };

@@ -6,6 +6,9 @@ import {
   Text,
   StatusBar,
   Platform,
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback,
+  Keyboard,
 } from "react-native";
 import GlucoseMonitor2 from "../components/GlucoseMonitor2";
 import { useState } from "react";
@@ -22,42 +25,42 @@ export default function HomeScreen({ navigation }) {
       <StatusBar
         backgroundColor={theme.header.background}
         barStyle="light-content"
-        translucent={false} // 👈 importante
+        translucent={false}
       />
-      <View
-        style={{
-          flex: 1,
-          paddingTop: Platform.OS === "android" ? 0 : 0, // iOS o Android
-        }}
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
-        <ScrollView contentContainerStyle={styles.scrollContent}>
-          <View style={styles.glucoseWrapper}>
-            <Image
-              source={require("../../assets/ilustracion-dos.png")}
-              style={styles.imageOverlay}
-            />
-            <GlucoseMonitor2 setArray={setArray} array={array} />
-          </View>
-          <View>
-            <Text style={[styles.titleOptions, { color: theme.text }]}>
-              Opciones
-            </Text>
-          </View>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <ScrollView contentContainerStyle={styles.scrollContent}>
+            <View style={styles.glucoseWrapper}>
+              <Image
+                source={require("../../assets/ilustracion-dos.png")}
+                style={styles.imageOverlay}
+              />
+              <GlucoseMonitor2 setArray={setArray} array={array} />
+            </View>
+            <View>
+              <Text style={[styles.titleOptions, { color: theme.text }]}>
+                Opciones
+              </Text>
+            </View>
 
-          <View style={styles.cntView}>
-            <CardCategory
-              title={"Registros"}
-              tabTitle={"Registros"}
-              navigation={navigation}
-            />
-            <CardCategory
-              title={"Graficos"}
-              tabTitle={"Gráficos"}
-              navigation={navigation}
-            />
-          </View>
-        </ScrollView>
-      </View>
+            <View style={styles.cntView}>
+              <CardCategory
+                title={"Registros"}
+                tabTitle={"Registros"}
+                navigation={navigation}
+              />
+              <CardCategory
+                title={"Graficos"}
+                tabTitle={"Graficos"}
+                navigation={navigation}
+              />
+            </View>
+          </ScrollView>
+        </TouchableWithoutFeedback>
+      </KeyboardAvoidingView>
     </LinearGradient>
   );
 }
@@ -83,7 +86,7 @@ const styles = StyleSheet.create({
 
   imageOverlay: {
     position: "absolute",
-    bottom: -80, // Ajustá esto según tu diseño
+    bottom: -80,
     right: -90,
     width: 330,
     height: 330,
@@ -99,6 +102,6 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     padding: 20,
-    paddingTop: 0, // 👈 esto es clave
+    paddingTop: 0,
   },
 });

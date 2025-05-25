@@ -7,6 +7,11 @@ import {
   Dimensions,
   Image,
   Alert,
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback,
+  Keyboard,
+  Platform,
+  ScrollView,
 } from "react-native";
 import InputForm from "../components/InputForm";
 import { useState } from "react";
@@ -16,6 +21,7 @@ import { useDispatch } from "react-redux";
 import { setUser } from "../features/userSlice";
 import { LinearGradient } from "expo-linear-gradient";
 import { BlurView } from "expo-blur";
+import userRepository from "../dataBases/userDao";
 
 const { width, height } = Dimensions.get("window");
 
@@ -55,12 +61,14 @@ const LoginScreen = ({ navigation }) => {
     }
 
     try {
+      // le pego a firebase
       const respuesta = await signIn({
         email,
         password,
         returnSecureToken: true,
       }).unwrap();
 
+      // lo guardas en redux
       dispatch(
         setUser({
           user: respuesta.email,
@@ -69,7 +77,17 @@ const LoginScreen = ({ navigation }) => {
         })
       );
 
-      console.log("Login exitoso:", respuesta);
+      await userRepository.saveUser({
+        email: respuesta.email,
+        expired: respuesta.expiresIn,
+        token: respuesta.idToken,
+        kind: respuesta.kind,
+        localId: respuesta.localId,
+        refreshToken: respuesta.refreshToken,
+        registered: true,
+      });
+
+      console.log("Login y guardado de db exitoso:");
     } catch (err) {
       console.log("Error al registrarse:", JSON.stringify(err, null, 2));
       const errorMessage = handleErrorFirebase(err);
@@ -79,38 +97,51 @@ const LoginScreen = ({ navigation }) => {
 
   return (
     <LinearGradient colors={["#C1C8E4", "#F7D9E3"]} style={styles.gradient}>
-      <View style={styles.cntLogin}>
-        <Text style={styles.title}>Bienvenido</Text>
-        <BlurView intensity={25} tint="light" style={styles.glassCard}>
-          <Image
-            source={require("../../assets/hands-login-blue.png")}
-            style={styles.imageOverlay}
-          />
-          <InputForm label={"Email"} onchange={setEmail} error={errorEmail} />
-          <InputForm
-            label={"Contraseña"}
-            onchange={setPassword}
-            error={errorPassword}
-            isSecure={true}
-          />
-
-          <SubmitButton
-            onPress={onSubmit}
-            title="Ingresar"
-            isLoading={isLoading}
-          />
-
-          <View style={styles.footer}>
-            <Text style={styles.footerText}>¿No tenés cuenta?</Text>
-            <Pressable
-              onPress={() => navigation.navigate("Signup")}
-              style={({ pressed }) => ({ opacity: pressed ? 0.6 : 1 })}
-            >
-              <Text style={styles.footerLink}>Crear cuenta</Text>
-            </Pressable>
-          </View>
-        </BlurView>
-      </View>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <KeyboardAvoidingView
+          style={{ flex: 1 }}
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+          keyboardVerticalOffset={Platform.OS === "ios" ? 60 : 0}
+        >
+          <ScrollView
+            contentContainerStyle={styles.cntLogin}
+            keyboardShouldPersistTaps="handled"
+          >
+            <Text style={styles.title}>Bienvenido</Text>
+            <BlurView intensity={25} tint="light" style={styles.glassCard}>
+              <Image
+                source={require("../../assets/hands-login-blue.png")}
+                style={styles.imageOverlay}
+              />
+              <InputForm
+                label={"Email"}
+                onchange={setEmail}
+                error={errorEmail}
+              />
+              <InputForm
+                label={"Contraseña"}
+                onchange={setPassword}
+                error={errorPassword}
+                isSecure={true}
+              />
+              <SubmitButton
+                onPress={onSubmit}
+                title="Ingresar"
+                isLoading={isLoading}
+              />
+              <View style={styles.footer}>
+                <Text style={styles.footerText}>¿No tenés cuenta?</Text>
+                <Pressable
+                  onPress={() => navigation.navigate("Signup")}
+                  style={({ pressed }) => ({ opacity: pressed ? 0.6 : 1 })}
+                >
+                  <Text style={styles.footerLink}>Crear cuenta</Text>
+                </Pressable>
+              </View>
+            </BlurView>
+          </ScrollView>
+        </KeyboardAvoidingView>
+      </TouchableWithoutFeedback>
     </LinearGradient>
   );
 };

@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
   },
   button: {
     width: "70%",
-    backgroundColor: "#6c5ce7", // o el color que uses en tu app
+    backgroundColor: "#4f6edc",
     flexDirection: "row",
     alignItems: "center",
     paddingVertical: 10,

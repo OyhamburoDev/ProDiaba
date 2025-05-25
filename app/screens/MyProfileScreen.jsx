@@ -6,6 +6,9 @@ import { useGetProfileImageQuery } from "../../api/services";
 import { LinearGradient } from "expo-linear-gradient";
 import { Pressable } from "react-native";
 import useThemeNew from "../hooks/useTheme";
+import store from "../store";
+import userRepository from "../dataBases/userDao";
+import { clearUser } from "../features/userSlice";
 
 const MyProfileScreen = ({ navigation }) => {
   const { imageCamera, localId } = useSelector((state) => state.auth);
@@ -20,6 +23,14 @@ const MyProfileScreen = ({ navigation }) => {
 
   const handleGoToLocation = () => {
     navigation.navigate("ListAdressScreen");
+  };
+
+  const handleLogOut = () => {
+    // cerrar sesion en la app
+    // en redux
+    store.dispatch(clearUser());
+    // y en db
+    userRepository.deleteUser();
   };
 
   return (
@@ -51,7 +62,7 @@ const MyProfileScreen = ({ navigation }) => {
           <Text style={styles.buttonText}>Mi dirección</Text>
         </Pressable>
 
-        <Pressable style={styles.logoutButton}>
+        <Pressable style={styles.logoutButton} onPress={handleLogOut}>
           <Text style={styles.logoutText}>Cerrar sesión</Text>
         </Pressable>
       </View>

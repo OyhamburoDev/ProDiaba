@@ -3,8 +3,8 @@ import {
   Text,
   View,
   TextInput,
-  TouchableOpacity,
   Pressable,
+  Alert,
 } from "react-native";
 import { useState } from "react";
 import useThemeNew from "../hooks/useTheme";
@@ -28,19 +28,31 @@ export default function GlucoseMonitor2({ array, setArray }) {
     const fecha = newItem.createAt.toISOString().split("T")[0]; // ejemplo: "2025-04-30"
     const hora = newItem.createAt.toTimeString().slice(0, 5); // ejemplo: "14:30"
 
+    const glucemia = Number(newItem.valorGlucemico);
+
+    if (!newItem.valorGlucemico.trim()) {
+      Alert.alert("Error", "El valor de glucosa no puede estar vacío");
+      return;
+    }
+
+    if (isNaN(glucemia)) {
+      Alert.alert("Error", "Ingresá un número válido");
+      return;
+    }
+
+    if (glucemia <= 0) {
+      Alert.alert("Error", "El número debe ser mayor a cero");
+      return;
+    }
+
     const controlFormateado = {
-      glucemia: newItem.valorGlucemico,
+      glucemia,
       comentario: newItem.comentario,
-      hora: hora,
+      hora,
     };
-    console.log("📤 Enviando a Firebase:", {
-      fecha,
-      control: controlFormateado,
-    });
     addControl({ fecha, control: controlFormateado })
       .unwrap()
       .then(() => {
-        console.log("✅ Control guardado");
         setNewItem({
           valorGlucemico: "",
           comentario: "",
@@ -48,7 +60,7 @@ export default function GlucoseMonitor2({ array, setArray }) {
         });
       })
       .catch((err) => {
-        console.error("❌ Error:", err);
+        console.error("Error:", err);
       });
   };
 
@@ -59,8 +71,8 @@ export default function GlucoseMonitor2({ array, setArray }) {
         <View style={styles.cardLeft}>
           <TextInput
             value={String(newItem.valorGlucemico)}
-            onChangeText={(number) =>
-              setNewItem({ ...newItem, valorGlucemico: Number(number) })
+            onChangeText={(text) =>
+              setNewItem({ ...newItem, valorGlucemico: text })
             }
             placeholder="Nivel de glucosa (mg/dL)"
             placeholderTextColor="rgba(0, 0, 0, 0.59)"
@@ -152,7 +164,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 30,
     fontFamily: "balooExtra",
-    marginBottom: 20, // ⬅️ separa del card
+    marginBottom: 20,
     textAlign: "center",
   },
   input1: {
@@ -160,7 +172,7 @@ const styles = StyleSheet.create({
 
     borderRadius: 12,
     padding: 10,
-    marginBottom: 12, // un poco más de espacio
+    marginBottom: 12,
     fontSize: 14,
     fontFamily: "baloo",
     textAlign: "center",
@@ -173,7 +185,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 12,
     padding: 10,
-    marginBottom: 12, // un poco más de espacio
+    marginBottom: 12,
     fontSize: 14,
     fontFamily: "baloo",
     textAlign: "center",
