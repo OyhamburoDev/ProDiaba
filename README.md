@@ -36,7 +36,7 @@ ProDiaba es una aplicación móvil desarrollada con **React Native + Expo** orie
 
 ---
 
-## 👤 Usuario de prueba (para que el profesor pueda probar la app)
+## 👤 Cuenta de prueba para testeo
 
 - **Email**: `ramiro@gmail.com`  
 - **Contraseña**: `ramiro123`
