@@ -3,6 +3,7 @@
 ProDiaba es una aplicación móvil desarrollada con **React Native + Expo** orientada a personas con diabetes tipo 1 o tipo 2 que necesitan registrar y hacer seguimiento de sus niveles de glucemia. La app permite ingresar valores glucémicos, agregar comentarios, visualizar el historial por fechas y gestionar un perfil personalizado.
 
 ---
+![Uploading image (1).png…]()
 
 ## 🌟 Características principales
 
