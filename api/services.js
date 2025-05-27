@@ -8,11 +8,11 @@ export const glucoseApi = createApi({
   tagTypes: ["profileImageGet", "userLocation"],
   endpoints: (builder) => ({
     getControles: builder.query({
-      query: () => "glucoseMonitor.json",
+      query: (localId) => `glucoseMonitor/${localId}.json`,
     }),
     addNewControl: builder.mutation({
-      query: ({ fecha, control }) => ({
-        url: `glucoseMonitor/${fecha}.json`,
+      query: ({ fecha, control, localId }) => ({
+        url: `glucoseMonitor/${localId}/${fecha}.json`,
         method: "POST",
         body: control,
       }),

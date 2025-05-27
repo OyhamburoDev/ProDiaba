@@ -1,13 +1,33 @@
-import { Text, View, FlatList, StyleSheet } from "react-native";
+import {
+  Text,
+  View,
+  FlatList,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import { Ionicons } from "@expo/vector-icons";
+import useThemeNew from "../hooks/useTheme";
 
-export default function ItemScreen({ route }) {
+export default function ItemScreen({ route, navigation }) {
   const { controles, fecha } = route.params;
+  const theme = useThemeNew();
 
   return (
-    <LinearGradient colors={["#C1C8E4", "#F7D9E3"]} style={{ flex: 1 }}>
+    <LinearGradient colors={theme.gradient} style={{ flex: 1 }}>
+      {/* Header personalizado */}
+      <View style={styles.header}>
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={styles.backButton}
+        >
+          <Ionicons name="arrow-back" size={24} color={theme.text} />
+        </TouchableOpacity>
+      </View>
       <View style={styles.container}>
-        <Text style={styles.title}>Registros del {fecha}</Text>
+        <Text style={[styles.title, { color: theme.text }]}>
+          Registros del {fecha}
+        </Text>
         <FlatList
           data={controles}
           keyExtractor={(item, index) => index.toString()}
@@ -20,12 +40,23 @@ export default function ItemScreen({ route }) {
               <Text style={styles.comentario}>{item.comentario}</Text>
             </View>
           )}
+          contentContainerStyle={{ paddingBottom: 120 }}
         />
       </View>
     </LinearGradient>
   );
 }
 const styles = StyleSheet.create({
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingTop: 40, // Ajusta según necesidad (iOS/Android)
+    paddingHorizontal: 15,
+    paddingBottom: 15,
+  },
+  backButton: {
+    padding: 8,
+  },
   container: {
     flex: 1,
     padding: 16,

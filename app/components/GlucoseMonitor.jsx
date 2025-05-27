@@ -3,187 +3,225 @@ import {
   Text,
   View,
   TextInput,
-  TouchableOpacity,
+  Pressable,
+  Alert,
 } from "react-native";
 import { useState } from "react";
-import { useNavigation } from "@react-navigation/native";
-import DateTimePicker from "@react-native-community/datetimepicker";
-import { useTheme } from "../context/ThemeContext";
+import useThemeNew from "../hooks/useTheme";
+import {
+  useAddNewControlMutation,
+  useGetControlesQuery,
+} from "../../api/services";
+import { BlurView } from "expo-blur";
+import { LinearGradient } from "expo-linear-gradient";
+import { useSelector } from "react-redux";
 
-export default function GlucoseMonitor({ array, setArray }) {
-  // Para estilos
-  const { theme } = useTheme();
+export default function GlucoseMonitor() {
+  const [focus1, setFocus1] = useState(false);
+  const [focus2, setFocus2] = useState(false);
+  const theme = useThemeNew();
+  const localId = useSelector((state) => state.auth.localId);
+  const [newItem, setNewItem] = useState({
+    valorGlucemico: "",
+    comentario: "",
+  });
 
-  // Para los datos del glucometro
-  const [glucosa, setGlucosa] = useState("");
-  const [horario, setHorario] = useState("");
-  const [comentario, setComentario] = useState("");
-  const [error, setError] = useState("");
-  const [showPicker, setShowPicker] = useState(false);
-  const [selectedTime, setSelectedTime] = useState(new Date());
+  const [addControl] = useAddNewControlMutation();
+  const { refetch } = useGetControlesQuery(localId);
 
-  // Para la navegacion
-  const navigation = useNavigation();
+  const onSend = () => {
+    const now = new Date();
+    const fecha = now.toISOString().split("T")[0];
+    const hora = now.toTimeString().slice(0, 5);
 
-  const handleSubmit = () => {
-    if (glucosa && horario) {
-      const today = new Date().toISOString().split("T")[0];
-      const newEntry = { glucosa, horario, comentario, fecha: today };
-      setArray((prevArray) => [...prevArray, newEntry]);
-      setGlucosa("");
-      setHorario("");
-      setComentario("");
-      setError("");
-    } else {
-      setError("Completa los campos de glucosa y horario");
+    const glucemia = Number(newItem.valorGlucemico);
+
+    if (!newItem.valorGlucemico.trim()) {
+      Alert.alert("Error", "El valor de glucosa no puede estar vacío");
+      return;
     }
-  };
 
-  const navigateToDetailScreen = () => {
-    navigation.navigate("DetailScreen", { array });
-  };
-
-  const onChangeTime = (event, selectedDate) => {
-    if (selectedDate) {
-      setShowPicker(false);
-      setSelectedTime(selectedDate);
-      setHorario(
-        selectedDate.toLocaleTimeString([], {
-          hour: "2-digit",
-          minute: "2-digit",
-        })
-      );
+    if (isNaN(glucemia)) {
+      Alert.alert("Error", "Ingresá un número válido");
+      return;
     }
+
+    if (glucemia <= 0) {
+      Alert.alert("Error", "El número debe ser mayor a cero");
+      return;
+    }
+
+    const controlFormateado = {
+      glucemia,
+      comentario: newItem.comentario,
+      hora,
+    };
+    addControl({ fecha, control: controlFormateado, localId })
+      .unwrap()
+      .then(() => {
+        refetch();
+        setNewItem({
+          valorGlucemico: "",
+          comentario: "",
+        });
+      })
+      .catch((err) => {
+        console.error("Error:", err);
+      });
   };
 
   return (
-    <View style={[styles.container, { backgroundColor: theme.background }]}>
-      <View style={[styles.card, { backgroundColor: theme.card.background }]}>
-        <Text style={[styles.title, { color: theme.card.colorTitle }]}>
-          Registro de Glucosa
-        </Text>
-
-        <Text style={{ color: theme.card.colorSubtitle }}>
-          Nivel de Glucosa:
-        </Text>
-        <TextInput
-          value={glucosa}
-          onChangeText={setGlucosa}
-          keyboardType="numeric"
-          placeholder="Ej: 110"
-          style={styles.input}
-        />
-
-        <Text style={{ color: theme.card.colorSubtitle }}>Horario:</Text>
-        <TouchableOpacity
-          style={styles.timePicker}
-          onPress={() => setShowPicker(true)}
-        >
-          <Text style={styles.timeText}>
-            {horario || "Seleccionar horario"}
-          </Text>
-        </TouchableOpacity>
-
-        {showPicker && (
-          <DateTimePicker
-            testID="dateTimePicker"
-            value={selectedTime}
-            mode="time"
-            is24Hour={true}
-            display="default"
-            onChange={onChangeTime}
+    <View style={styles.container}>
+      <Text style={[styles.title, { color: theme.text }]}>
+        Control de glucemia
+      </Text>
+      <BlurView intensity={25} tint="light" style={styles.cardContainer}>
+        <View style={styles.cardLeft}>
+          <TextInput
+            value={String(newItem.valorGlucemico)}
+            onChangeText={(text) =>
+              setNewItem({ ...newItem, valorGlucemico: text })
+            }
+            placeholder="Nivel de glucosa (mg/dL)"
+            placeholderTextColor="rgba(0, 0, 0, 0.59)"
+            onFocus={() => setFocus1(true)}
+            onBlur={() => setFocus1(false)}
+            style={[
+              styles.input1,
+              {
+                color: theme.text,
+                borderColor: focus1
+                  ? "rgba(197, 202, 233, 0.8)"
+                  : "rgba(255, 255, 255, 0)",
+                backgroundColor: focus1
+                  ? "rgba(255, 255, 255, 0.5)"
+                  : "rgba(255, 255, 255, 0.83)",
+              },
+            ]}
+            keyboardType="numeric"
           />
-        )}
 
-        <Text style={{ color: theme.card.colorSubtitle }}>
-          Comentario (opcional):
-        </Text>
-        <TextInput
-          value={comentario}
-          onChangeText={setComentario}
-          placeholder="Añadir comentario"
-          style={styles.input}
-        />
+          <TextInput
+            value={newItem.comentario}
+            onChangeText={(text) =>
+              setNewItem({ ...newItem, comentario: text })
+            }
+            placeholder="Comentario opcional"
+            placeholderTextColor="rgba(0, 0, 0, 0.59)"
+            onFocus={() => setFocus2(true)}
+            onBlur={() => setFocus2(false)}
+            style={[
+              styles.input2,
+              {
+                color: theme.text,
+                borderColor: focus2
+                  ? "rgba(197, 202, 233, 0.8)"
+                  : "rgba(255, 255, 255, 0)",
+                backgroundColor: focus2
+                  ? "rgba(255, 255, 255, 0.5)"
+                  : "rgba(255, 255, 255, 0.83)",
+              },
+            ]}
+          />
 
-        {error && <Text style={styles.error}>{error}</Text>}
-
-        <View style={styles.btnContainer}>
-          <TouchableOpacity
-            style={[styles.button, { backgroundColor: theme.card.btnPrimario }]}
-            onPress={handleSubmit}
+          <Pressable
+            onPress={onSend}
+            style={({ pressed }) => [
+              styles.saveButton,
+              pressed && styles.buttonPressed,
+            ]}
           >
-            <Text style={styles.buttonText}>Guardar</Text>
-          </TouchableOpacity>
+            <LinearGradient
+              colors={["#4f6edc", "#6174ff"]}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 1 }}
+              style={styles.gradient}
+            >
+              <Text style={styles.saveText}>Guardar</Text>
+            </LinearGradient>
+          </Pressable>
         </View>
-      </View>
+      </BlurView>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  dark: { backgroundColor: "#1E1E1E" },
-  light: { backgroundColor: "white" },
   container: {
-    flex: 1,
-    justifyContent: "center",
-    paddingHorizontal: 20,
-    backgroundColor: "#f5f5f5",
-    marginTop: 20,
+    alignItems: "center",
+    paddingVertical: 30,
   },
-  card: {
-    backgroundColor: "#fff",
-    padding: 20,
-    borderRadius: 10,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-    elevation: 5,
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
-    marginBottom: 15,
-    textAlign: "center",
-  },
-  input: {
-    borderWidth: 1,
-    padding: 10,
-    marginVertical: 8,
-    borderColor: "#ccc",
-    borderRadius: 5,
-    backgroundColor: "#f9f9f9",
-  },
-  timePicker: {
-    borderWidth: 1,
-    borderColor: "#ccc",
-    padding: 10,
-    marginVertical: 8,
-    borderRadius: 5,
-    backgroundColor: "#f9f9f9",
-  },
-  timeText: {
-    color: "#555",
-  },
-  error: {
-    color: "red",
-    marginBottom: 10,
-    textAlign: "center",
-  },
-  btnContainer: {
+  cardContainer: {
+    width: "95%",
     flexDirection: "row",
     justifyContent: "space-between",
-    marginTop: 15,
-  },
-  button: {
-    flex: 1,
-    padding: 12,
-    borderRadius: 5,
     alignItems: "center",
-    marginHorizontal: 5,
+    padding: 20,
+    borderRadius: 24,
+    overflow: "hidden",
+    backgroundColor: "rgba(255, 255, 255, 0.13)",
+
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 10 },
+    shadowOpacity: 0.05,
+    shadowRadius: 20,
   },
-  buttonText: {
-    color: "#fff",
+  cardLeft: {
+    flex: 1,
+  },
+  title: {
+    fontSize: 30,
+    fontFamily: "balooExtra",
+    marginBottom: 20,
+    textAlign: "center",
+  },
+  input1: {
+    width: "75%",
+
+    borderRadius: 12,
+    padding: 10,
+    marginBottom: 12,
+    fontSize: 14,
+    fontFamily: "baloo",
+    textAlign: "center",
+    backgroundColor: "rgba(255, 255, 255, 0.83)",
+    borderWidth: 1,
+    borderColor: "rgba(255, 255, 255, 0)",
+  },
+  input2: {
+    width: "60%",
+    borderWidth: 1,
+    borderRadius: 12,
+    padding: 10,
+    marginBottom: 12,
+    fontSize: 14,
+    fontFamily: "baloo",
+    textAlign: "center",
+    backgroundColor: "rgba(255, 255, 255, 0.83)",
+  },
+  saveButton: {
+    borderRadius: 14,
+    marginTop: 6,
+    width: "65%",
+    overflow: "hidden",
+  },
+
+  gradient: {
+    paddingVertical: 12,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 14,
+  },
+
+  buttonPressed: {
+    opacity: 0.8,
+    transform: [{ scale: 0.98 }],
+  },
+
+  saveText: {
+    color: "#FFFFFF",
+    fontSize: 16,
+    fontFamily: "baloo",
     fontWeight: "bold",
   },
 });

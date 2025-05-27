@@ -10,7 +10,7 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
 } from "react-native";
-import GlucoseMonitor2 from "../components/GlucoseMonitor2";
+import GlucoseMonitor from "../components/GlucoseMonitor";
 import { useState } from "react";
 import CardCategory from "../components/CardCategory";
 import { LinearGradient } from "expo-linear-gradient";
@@ -35,10 +35,10 @@ export default function HomeScreen({ navigation }) {
           <ScrollView contentContainerStyle={styles.scrollContent}>
             <View style={styles.glucoseWrapper}>
               <Image
-                source={require("../../assets/ilustracion-dos.png")}
+                source={require("../../assets/ilustracion-tres.png")}
                 style={styles.imageOverlay}
               />
-              <GlucoseMonitor2 setArray={setArray} array={array} />
+              <GlucoseMonitor setArray={setArray} array={array} />
             </View>
             <View>
               <Text style={[styles.titleOptions, { color: theme.text }]}>
@@ -86,10 +86,10 @@ const styles = StyleSheet.create({
 
   imageOverlay: {
     position: "absolute",
-    bottom: -80,
-    right: -90,
-    width: 330,
-    height: 330,
+    bottom: -42,
+    right: -22,
+    width: 180,
+    height: 260,
     zIndex: 2,
     resizeMode: "contain",
   },

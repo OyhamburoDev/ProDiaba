@@ -100,6 +100,7 @@ export default function TabsNavigator() {
         options={{
           title: "Últimos 10 días",
           tabBarLabel: "Registros",
+          headerShown: false,
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons
               name="clipboard-text-outline"
@@ -115,6 +116,7 @@ export default function TabsNavigator() {
         options={{
           title: "ProDiaba",
           tabBarLabel: "Gráficos",
+          headerShown: false,
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="bar-chart-outline" size={size} color={color} />
           ),

@@ -1,6 +1,4 @@
 import { View, Text, Image, StyleSheet, Button } from "react-native";
-import ImageSelectorScreen from "./ImageSelectorScreen";
-import ListAdressScreen from "./ListAdressScreen";
 import { useSelector } from "react-redux";
 import { useGetProfileImageQuery } from "../../api/services";
 import { LinearGradient } from "expo-linear-gradient";
