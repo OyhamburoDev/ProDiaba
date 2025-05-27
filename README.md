@@ -30,9 +30,15 @@ ProDiaba es una aplicación móvil desarrollada con **React Native + Expo** orie
 - **Redux Toolkit + Redux**
 - **Firebase Auth & Realtime Database**
 - **SQLite** (expo-sqlite)
-- **Expo Image Picker + Camera**
 - **Expo Location**
-- **Expo Linear Gradient / BlurView**
+- **Expo Image Picker + Camera**
+- **React Navigation**
+
+## 🎨 Herramientas de estilo visual
+
+- **Expo Linear Gradient**
+- **Expo BlurView**
+- **Modo claro/oscuro gestionado con Redux**
 
 ---
 
