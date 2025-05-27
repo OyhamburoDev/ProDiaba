@@ -51,7 +51,6 @@ const styles = StyleSheet.create({
     color: "#4A4A6A",
     fontSize: 16,
     fontWeight: "500",
-    // Borde sutil solo al estar enfocado
     borderWidth: 1,
     borderColor: "rgba(255, 255, 255, 0)",
   },

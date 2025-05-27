@@ -4,7 +4,6 @@ import { GOOGLE_MAPS_KEY } from "../dataBases/googleMaps";
 export const MapViewComponent = ({ latitude, longitude }) => {
   const googleMapsUrl = `https://maps.googleapis.com/maps/api/staticmap?center=${latitude},${longitude}&zoom=14&size=600x300&markers=color:red%7Clabel:A%7C${latitude},${longitude}&key=${GOOGLE_MAPS_KEY}`;
 
-  console.log("URL generada:", googleMapsUrl);
   return (
     <View style={styles.card}>
       <Image style={styles.mapImage} source={{ uri: googleMapsUrl }} />

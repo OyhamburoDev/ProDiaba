@@ -160,7 +160,6 @@ const styles = StyleSheet.create({
     borderRadius: 24,
     overflow: "hidden",
     backgroundColor: "rgba(255, 255, 255, 0.13)",
-
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 10 },
     shadowOpacity: 0.05,
@@ -177,7 +176,6 @@ const styles = StyleSheet.create({
   },
   input1: {
     width: "75%",
-
     borderRadius: 12,
     padding: 10,
     marginBottom: 12,

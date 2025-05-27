@@ -5,7 +5,7 @@ import { clearLocation } from "../features/locationSlice";
 import { Ionicons } from "@expo/vector-icons";
 
 const AddressItem = ({ navigation, address }) => {
-  const dispatch = useDispatch(); // REdux
+  const dispatch = useDispatch();
   const [deleteUserLocation] = useDeleteUserLocationMutation();
   const { localId } = useSelector((state) => state.auth);
 
@@ -13,8 +13,8 @@ const AddressItem = ({ navigation, address }) => {
     navigation.navigate("LocationSelectorScreen");
   };
 
-  // Eliminar la localización
   const deteleLocation = async () => {
+    // Eliminar la localización
     try {
       await deleteUserLocation(localId); // borra en Firebase
       dispatch(clearLocation()); // limpia en Redux

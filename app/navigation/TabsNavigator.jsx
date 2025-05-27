@@ -1,4 +1,3 @@
-import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { TouchableOpacity } from "react-native";
 import {
@@ -57,8 +56,8 @@ export default function TabsNavigator() {
           shadowRadius: 10,
           elevation: 10,
         },
-        tabBarActiveTintColor: "black",
-        tabBarInactiveTintColor: "gray",
+        tabBarActiveTintColor: "rgba(0, 0, 0, 1) ",
+        tabBarInactiveTintColor: "rgba(128, 128, 128, 1)",
         tabBarLabelStyle: {
           fontSize: 12,
           fontFamily: "balooSemi",

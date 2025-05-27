@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: "row",
     alignItems: "center",
-    paddingTop: 40, // Ajusta según necesidad (iOS/Android)
+    paddingTop: 40,
     paddingHorizontal: 15,
     paddingBottom: 15,
   },

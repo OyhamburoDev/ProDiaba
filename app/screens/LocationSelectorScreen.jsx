@@ -30,7 +30,6 @@ export default function LocationSelectorScreen({ navigation }) {
       const location = await Location.getCurrentPositionAsync({});
       const { latitude, longitude } = location.coords;
 
-      console.log("📍 Nueva ubicación tomada:", latitude, longitude);
       setTempLocation({ latitude, longitude });
     })();
   }, []);
@@ -45,7 +44,6 @@ export default function LocationSelectorScreen({ navigation }) {
         );
         const data = await response.json();
         const formattedAddress = data?.results?.[0]?.formatted_address;
-        console.log("📬 Dirección seteada:", formattedAddress);
         dispatch(setAddress({ address: formattedAddress }));
       } catch (err) {
         console.error("Error al obtener la dirección:", err);

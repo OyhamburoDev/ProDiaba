@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   header: {
-    paddingTop: 60, // Ajusta según necesidad (50-60 para iOS, 20-30 para Android)
+    paddingTop: 60,
     paddingHorizontal: 20,
     paddingBottom: 15,
   },

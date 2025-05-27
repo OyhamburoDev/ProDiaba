@@ -1,6 +1,5 @@
 import { StatusBar, View } from "react-native";
 import { useFonts } from "expo-font";
-import * as SplashScreen from "expo-splash-screen";
 import { useCallback, useEffect } from "react";
 import Navigator from "./app/navigation/Navigator";
 import { Provider } from "react-redux";
@@ -15,17 +14,14 @@ export default function App() {
   const theme = useTheme();
 
   useEffect(() => {
-    // primera vez que se inicia la app ejecuta la base de datos
+    // Primera vez que se inicia la app ejecuta la base de datos
     const initDB = async () => {
       try {
         await userRepository.init();
-        // await userRepository.deleteUser()
-
-        // che hay un usuario guardado en la db?
+        //  ¿Hay un usuario guardado en la db?
         const user = await userRepository.getUser();
-        console.log("user", user);
         if (user) {
-          // si existe ---> guardarlo en redux
+          // Si existe ---> guardarlo en redux
           store.dispatch(
             setUser({
               user: user.email,
@@ -42,7 +38,7 @@ export default function App() {
     initDB();
   }, []);
 
-  //fuentes
+  // Fuentes
   const [fontsLoaded] = useFonts({
     baloo: require("./assets/fonts/Baloo2-Bold.ttf"),
     balooExtra: require("./assets/fonts/Baloo2-ExtraBold.ttf"),

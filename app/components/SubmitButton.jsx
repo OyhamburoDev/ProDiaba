@@ -1,11 +1,4 @@
-import React from "react";
-import {
-  View,
-  Text,
-  Pressable,
-  StyleSheet,
-  ActivityIndicator,
-} from "react-native";
+import { Text, Pressable, StyleSheet, ActivityIndicator } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 
 const SubmitButton = ({ onPress, title, isLoading = false }) => {
@@ -36,7 +29,7 @@ const styles = StyleSheet.create({
     borderRadius: 14,
     marginTop: 5,
     width: "100%",
-    overflow: "hidden", // Para que el gradiente tenga bordes redondeados
+    overflow: "hidden",
   },
   gradient: {
     paddingVertical: 16,

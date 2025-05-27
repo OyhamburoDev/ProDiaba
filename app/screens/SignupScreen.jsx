@@ -16,7 +16,6 @@ import InputForm from "../components/InputForm";
 import SubmitButton from "../components/SubmitButton";
 import { useSignUpMutation } from "../../api/authServices";
 import { LinearGradient } from "expo-linear-gradient";
-import useTheme from "../hooks/useTheme";
 import { BlurView } from "expo-blur";
 
 const SignupScreen = ({ navigation }) => {
@@ -30,8 +29,6 @@ const SignupScreen = ({ navigation }) => {
   const [errorConfirmP, setErrorConfirmp] = useState("");
 
   const [signUp, { isLoading }] = useSignUpMutation();
-
-  const theme = useTheme();
 
   const handleFirebaseError = (error) => {
     let errorCode = error?.data?.error?.message || "unknown";
@@ -75,7 +72,6 @@ const SignupScreen = ({ navigation }) => {
         returnSecureToken: true,
       }).unwrap();
 
-      console.log("Usuario creado:", result);
       Alert.alert("¡Éxito!", "El registro fue completado", [
         { text: "OK", onPress: () => navigation.navigate("Login") },
       ]);
@@ -84,7 +80,7 @@ const SignupScreen = ({ navigation }) => {
       setPassword("");
       setConfirmPassword("");
     } catch (err) {
-      console.log("Error al registrarse:", err);
+      console.error("Error al registrarse:", err);
       const errorMessage = handleFirebaseError(err);
       Alert.alert("Error", errorMessage);
     }
@@ -168,16 +164,14 @@ const styles = StyleSheet.create({
     borderRadius: 24,
     overflow: "hidden",
     backgroundColor: "rgba(255, 255, 255, 0.15)",
-    // Eliminamos completamente el borde que no te gustaba
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 10 },
     shadowOpacity: 0.05,
     shadowRadius: 20,
-    // elevation: 5,
   },
   imageOverlay: {
     position: "relative",
-    bottom: 0, // Ajustá esto según tu diseño
+    bottom: 0,
     right: 0,
     width: 300,
     height: 290,

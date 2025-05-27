@@ -24,7 +24,7 @@ const ImageSelectorScreen = ({ navigation }) => {
       triggerPostImage({ image, localId });
       navigation.goBack();
     } catch (err) {
-      console.log(err);
+      console.error("Error en confirmImage:", err);
     }
   };
 
@@ -46,12 +46,11 @@ const ImageSelectorScreen = ({ navigation }) => {
         });
         if (!result.canceled) {
           const image = `data:image/jpeg;base64, ${result.assets[0].base64}`;
-          console.log(image);
           setImage(image);
         }
       }
     } catch (err) {
-      console.log(err);
+      console.error("Error al tomar o procesar la imagen:", err);
     }
   };
 
@@ -121,7 +120,7 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: "row",
     alignItems: "center",
-    paddingTop: 40, // Ajusta según necesidad (iOS/Android)
+    paddingTop: 40,
     paddingHorizontal: 15,
     paddingBottom: 15,
   },
@@ -180,7 +179,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: 20,
     paddingHorizontal: 20,
-    paddingTop: 80, // opcional, si querés mantener el espacio arriba
+    paddingTop: 80,
   },
   noPhotoText: {
     fontSize: 16,

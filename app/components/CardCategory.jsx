@@ -1,4 +1,4 @@
-import { View, Text, Card, Pressable, StyleSheet } from "react-native";
+import { Text, Pressable, StyleSheet } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import useThemeNew from "../hooks/useTheme";
 import { BlurView } from "expo-blur";

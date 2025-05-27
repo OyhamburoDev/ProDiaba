@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 
 const Navigator = () => {
   const user = useSelector((state) => state.auth.user);
-  console.log("Navigator--->", user);
 
   return (
     <NavigationContainer>

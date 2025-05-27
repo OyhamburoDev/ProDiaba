@@ -1,10 +1,8 @@
-import React from "react";
 import {
   View,
   Text,
   Pressable,
   StyleSheet,
-  Dimensions,
   Image,
   Alert,
   KeyboardAvoidingView,
@@ -22,8 +20,6 @@ import { setUser } from "../features/userSlice";
 import { LinearGradient } from "expo-linear-gradient";
 import { BlurView } from "expo-blur";
 import userRepository from "../dataBases/userDao";
-
-const { width, height } = Dimensions.get("window");
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -68,7 +64,7 @@ const LoginScreen = ({ navigation }) => {
         returnSecureToken: true,
       }).unwrap();
 
-      // lo guardas en redux
+      // lo guardo en redux
       dispatch(
         setUser({
           user: respuesta.email,
@@ -86,10 +82,8 @@ const LoginScreen = ({ navigation }) => {
         refreshToken: respuesta.refreshToken,
         registered: true,
       });
-
-      console.log("Login y guardado de db exitoso:");
     } catch (err) {
-      console.log("Error al registrarse:", JSON.stringify(err, null, 2));
+      console.error("Error al iniciar sesión:", JSON.stringify(err, null, 2));
       const errorMessage = handleErrorFirebase(err);
       Alert.alert("Error al iniciar sesion", errorMessage);
     }
@@ -172,7 +166,7 @@ const styles = StyleSheet.create({
   },
   imageOverlay: {
     position: "relative",
-    bottom: 0, // Ajustá esto según tu diseño
+    bottom: 0,
     right: 0,
     width: 300,
     height: 290,

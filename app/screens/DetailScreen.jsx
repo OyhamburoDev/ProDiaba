@@ -1,11 +1,4 @@
-import {
-  FlatList,
-  Text,
-  Pressable,
-  StyleSheet,
-  View,
-  ScrollView,
-} from "react-native";
+import { Text, Pressable, StyleSheet, View, ScrollView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
 import useThemeNew from "../hooks/useTheme";
@@ -120,12 +113,12 @@ const styles = StyleSheet.create({
     paddingBottom: 120, // espacio suficiente para que el TabBar no tape nada
   },
   cardContainer: {
-    width: "95%", // más angosto
+    width: "95%",
     maxWidth: 340,
     alignSelf: "center",
     justifyContent: "center",
     alignItems: "center",
-    padding: 12, // menos padding
+    padding: 12,
     borderRadius: 24,
     overflow: "hidden",
     backgroundColor: "rgba(255, 255, 255, 0.13)",
