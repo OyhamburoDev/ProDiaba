@@ -17,9 +17,9 @@ ProDiaba es una aplicación móvil desarrollada con **React Native + Expo** orie
 - 🧰 **Estado global con Redux**: manejo de autenticación, datos y tema.
 - 📂 **Almacenamiento de datos en Firebase Realtime Database + SQLite**.
 - 🌍 **Pantalla de perfil**:
-  - Carga y edición de foto de perfil (Firebase + SQLite).
-  - Guardado y modificación de ubicación (Firebase).
-  - Cierre de sesión.
+  - Carga y edición de foto de perfil (Firebase + SQLite + Redux).
+  - Guardado y modificación de ubicación (Firebase + Redux).
+  - Cierre de sesión (Firebase + Redux + SQLite).
 - 📈 **Sección de gráficos**: placeholder para futura implementación (visualización de glucemias por día, semana y mes).
 
 ---
@@ -27,7 +27,7 @@ ProDiaba es una aplicación móvil desarrollada con **React Native + Expo** orie
 ## 🚀 Tecnologías utilizadas
 
 - **React Native + Expo SDK 53**
-- **Redux Toolkit + Redux Persist**
+- **Redux Toolkit + Redux**
 - **Firebase Auth & Realtime Database**
 - **SQLite** (expo-sqlite)
 - **Expo Image Picker + Camera**
@@ -48,10 +48,18 @@ Este usuario tiene datos pre-cargados en la base para que se puedan visualizar l
 ## 📦 Dependencias necesarias para correr la app
 
 ```bash
-npx expo install react-redux @reduxjs/toolkit redux-persist
+npx expo install react-redux @reduxjs/toolkit
 npx expo install firebase
 npx expo install expo-sqlite
 npx expo install expo-location
 npx expo install expo-image-picker
 npx expo install expo-linear-gradient
 npx expo install expo-blur
+npx expo install expo-constants
+npx expo install expo-file-system
+npx expo install expo-font
+npx expo install expo-splash-screen
+npx expo install react-native-calendars
+npx expo install react-native-svg
+npx expo install react-native-gesture-handler react-native-reanimated react-native-screens react-native-safe-area-context
+npx expo install @react-navigation/native @react-navigation/native-stack @react-navigation/bottom-tabs
