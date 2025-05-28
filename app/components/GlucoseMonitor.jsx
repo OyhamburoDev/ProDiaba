@@ -31,7 +31,13 @@ export default function GlucoseMonitor() {
 
   const onSend = () => {
     const now = new Date();
-    const fecha = now.toISOString().split("T")[0];
+    const fecha = now
+      .toLocaleDateString("es-AR", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+      })
+      .replace(/(\d{2})\/(\d{2})\/(\d{4})/, "$3-$2-$1");
     const hora = now.toTimeString().slice(0, 5);
 
     const glucemia = Number(newItem.valorGlucemico);
