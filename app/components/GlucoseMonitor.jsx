@@ -64,6 +64,7 @@ export default function GlucoseMonitor() {
           valorGlucemico: "",
           comentario: "",
         });
+        Alert.alert("Éxito", "Tu nivel de glucosa fue guardado correctamente");
       })
       .catch((err) => {
         console.error("Error:", err);
